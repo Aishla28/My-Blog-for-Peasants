@@ -170,3 +170,25 @@ taxi_modified %>%
     subtitle = "Is this plot arrangement easy to grasp?"
     )
 ```
+
+```{r}
+taxi_modified %>% 
+  gf_bar(~hour | dow,
+    fill = ~tip,
+  ) %>% 
+  gf_labs( 
+    title = "Plot F: Counts of Tips by Hour and Day of Week",
+    subtitle = "Is this plot arrangement easy to grasp?"
+    )
+```
+
+```{r}
+taxi_modified %>% 
+  gf_bar(~hour,
+    fill = ~tip,     
+    position = "fill"     
+  ) %>% 
+  gf_labs( 
+    title = "Plot F: Counts of Tips by Hour"
+    )
+```
