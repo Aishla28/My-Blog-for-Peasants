@@ -1,0 +1,32 @@
+---
+title: "My name is Aish K"
+author: "Aishwarya"
+---
+
+## Introduction
+
+Hey there, I am Aish
+
+## My first piece of R code
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(babynames)
+library(ggformula)
+```
+
+```{r}
+babynames::babynames
+```
+
+```{r}
+babynames %>% filter(name == "Aishwarya" | name == "Aishwaria")
+```
+
+```{r}
+babynames %>% filter(name == "Shashank" | name == "Harsha") %>% 
+  gf_line(n ~ year)
+```
+
+My name is damn cool!
