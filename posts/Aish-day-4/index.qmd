@@ -1,0 +1,300 @@
+---
+title: "Day-4"
+author: "Aish"
+---
+
+# Day 4
+
+## Quantities
+
+We have downloaded a new library today - "crosstable". It is used for fast stats for multiple variables in table form.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(skimr)
+library(crosstable)
+```
+
+## Examining the 'Diamonds' dataset.
+
+```{r}
+glimpse(diamonds)
+```
+
+```{r}
+skim(diamonds)
+```
+
+```{r}
+inspect(diamonds)
+```
+
+```{r}
+gf_histogram(~price, data = diamonds) %>%
+  gf_labs(
+    title = "Plot 1A: Diamond Prices",
+    caption = "ggformula"
+  )
+```
+
+```{r}
+diamonds %>% 
+  gf_histogram(~price, bins = 100) %>% 
+  gf_labs(
+    title = "Plot 1B: Diamond Prices",
+    caption = "ggformula"
+
+  )
+```
+
+#### Insights:
+
+-   There are a great many diamonds at relatively low prices, but there are a good few diamonds at very high prices too.
+
+-   Using a high number of bins does not materially change the view of the histogram.
+
+```{r}
+diamonds %>% 
+  gf_histogram(~carat) %>% 
+  gf_labs(
+     title = "Plot 2A: Carats of Diamonds",
+    caption = "ggformula"
+  )
+```
+
+```{r}
+diamonds %>% 
+  gf_histogram(~carat, bins = 100) %>% 
+  gf_labs(
+     title = "Plot 2B: Carats of Diamonds",
+    caption = "ggformula"
+  )
+```
+
+#### insights:
+
+-   there is a marked “discreteness” to the distribution. Some values of carat are far more common than others. For example, 1, 1.5, and 2 carat diamonds are large in number.
+
+```{r}
+diamonds %>% 
+  gf_histogram(~price, fill = ~cut) %>% 
+  gf_labs(
+     title = "Plot 3A: Diamond Prices", caption = "ggformula")
+```
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.3) %>%
+  gf_labs(
+    title = "Plot 3B: Prices by Cut",
+    caption = "ggformula"
+  )
+```
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.3) %>%
+  gf_facet_wrap(~cut) %>%
+  gf_labs(
+    title = "Plot 3C: Prices by Filled and Facetted by Cut",
+    caption = "ggformula"
+  ) %>%
+  gf_theme(theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  ))
+```
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.3) %>%
+  gf_facet_wrap(~cut, scales = "free_y", nrow = 2) %>%
+  gf_labs(
+    title = "Plot 3D: Prices Filled and Facetted by Cut",
+    subtitle = "Free y-scale",
+    caption = "ggformula"
+  ) %>%
+  gf_theme(theme(
+    axis.text.x =
+      element_text(
+        angle = 45,
+        hjust = 1
+      )
+  ))
+```
+
+```{r}
+#| eval: false
+install.packages("shiny")
+library(shiny)
+runExample("01_hello") # an interactive histogram
+```
+
+## Examining the 'Race' dataset.
+
+```{r}
+race_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/race.csv")
+rank_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/ultra_rankings.csv")
+```
+
+```{r}
+glimpse(race_df)
+```
+
+```{r}
+glimpse(rank_df)
+```
+
+```{r}
+race_df %>%
+  favstats(~distance, data = .)
+```
+
+```{r}
+##
+race_df %>%
+  favstats(~participants, data = .)
+```
+
+```{r}
+##
+rank_df %>%
+  drop_na() %>%
+  favstats(time_in_seconds ~ gender, data = .)
+```
+
+```{r}
+## library(crosstable)
+crosstable(time_in_seconds + age ~ gender, data = rank_df) %>%
+  crosstable::as_flextable()
+```
+
+### **Max. Races and participants**
+
+```{r}
+race_df %>%
+  count(country) %>%
+  arrange(desc(n))
+```
+
+```{r}
+rank_df %>%
+  count(nationality) %>%
+  arrange(desc(n))
+```
+
+Insights:
+
+-   the first piece of code tells the no. of races hosted by the respective countries, whereas the secodn piece of code tells no, of participants from each county.
+
+-   The top three locations for races were the USA, UK, and France. These are also the countries that send the maximum number of participants, naturally!
+
+### **Max. Winners**
+
+```{r}
+rank_df %>%
+  filter(rank %in% c(1, 2, 3)) %>%
+  count(nationality) %>%
+  arrange(desc(n))
+```
+
+### **Which countries have had the most top-3 finishes?**
+
+```{r}
+longest_races <- race_df %>%
+  slice_max(n = 5, order_by = distance) # Longest distance races
+longest_races
+longest_races %>%
+  left_join(., rank_df, by = "race_year_id") %>% # total participants in longest 4 races
+  filter(rank %in% c(1:10)) %>% # Top 10 ranks
+  count(nationality) %>%
+  arrange(desc(n))
+```
+
+### **What is the distribution of the finishing times?**
+
+```{r}
+rank_df %>%
+  gf_histogram(~time_in_seconds, bins = 75) %>%
+  gf_labs(title = "Histogram of Race Times")
+```
+
+-   "1e+05" means 1×10 to the power 5. this is equal to 100,000 seconds.
+
+### **What is the distribution of race distances?**
+
+```{r}
+race_df %>%
+  gf_histogram(~distance, bins = 50) %>%
+  gf_labs(title = "Histogram of Race Distances")
+```
+
+```{r}
+race_df %>%
+  filter(distance == 0)
+```
+
+-   some of these zero-distance races have had participants too! Perhaps these were cancelled events…all of them are stated to be `100 mile` events…
+
+### **What is the distribution of finishing times for race distance around 150?**
+
+```{r}
+race_times <- race_df %>%
+  count(start_time) %>%
+  arrange(desc(n))
+race_times
+```
+
+```{r}
+# Demo purposes only!
+
+race_start_factor <- race_df %>%
+  filter(distance == 0) %>% # Races that actually took place
+  mutate(
+    start_day_time =
+      case_when(
+        start_time > hms("02:00:00") &
+          start_time <= hms("06:00:00") ~ "early_morning",
+        start_time > hms("06:00:01") &
+          start_time <= hms("10:00:00") ~ "late_morning",
+        start_time > hms("10:00:01") &
+          start_time <= hms("14:00:00") ~ "mid_day",
+        start_time > hms("14:00:01") &
+          start_time <= hms("18:00:00") ~ "afternoon",
+        start_time > hms("18:00:01") &
+          start_time <= hms("22:00:00") ~ "evening",
+        start_time > hms("22:00:01") &
+          start_time <= hms("23:59:59") ~ "night",
+        start_time >= hms("00:00:00") &
+          start_time <= hms("02:00:00") ~ "postmidnight",
+        .default = "other"
+      )
+  ) %>%
+  mutate(
+    start_day_time =
+      as_factor(start_day_time) %>%
+        fct_collapse(
+          .f = .,
+          night = c("night", "postmidnight")
+        )
+  )
+##
+# Join with rank_df
+race_start_factor %>%
+  left_join(rank_df, by = "race_year_id") %>%
+  drop_na(time_in_seconds) %>%
+  gf_histogram(
+    ~time_in_seconds,
+    bins = 75,
+    fill = ~start_day_time,
+    color = ~start_day_time,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(vars(start_day_time), ncol = 2, scales = "free_y") %>%
+  gf_labs(title = "Race Times by Start-Time")
+```
