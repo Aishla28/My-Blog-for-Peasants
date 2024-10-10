@@ -21,6 +21,12 @@ library(kableExtra)
 glimpse(mpg)
 ```
 
+### Purpose of glimpse():
+
+-   Provides a compact overview of a dataset, showing variable names, types, and a preview of the values in each column.
+
+-   comes under 'tidyverse package'.
+
 ```{r}
 mpg
   head(10)
@@ -30,9 +36,19 @@ mpg
 inspect(mpg)
 ```
 
+### Purpose of inspect():
+
+-   Provides a detailed comparison of the structure and contents of data frames. You use it when you want a deeper inspection of your dataset.
+
 ```{r}
 skimr::skim(mpg)
 ```
+
+### Purpose of skim():
+
+-   Comes under 'skimr'.
+
+-   Provides an in-depth summary of your data, including counts, mean, median, min/max, unique values, and missing values for each variable. You use it when you need detailed description for each column in your dataset, both for numeric and catagorical values.
 
 ```{r}
 mpg_modified <- mpg %>%
@@ -46,6 +62,20 @@ mpg_modified <- mpg %>%
 glimpse(mpg_modified)
 ```
 
+### Factors?? what are those?
+
+A **factor** in R is a data type used to represent **categorical variables**. It stores both the values of the variable (called **levels**) and the actual data. Factors are particularly useful for handling **nominal** (unordered categories) and **ordinal** (ordered categories) data.
+
+-   **Nominal variables**: Categories that do not have a specific order (e.g., "Male", "Female", "Yes", "No").
+
+<!-- -->
+
+-   **Ordinal variables**: Categories that have a meaningful order (e.g., "Low", "Medium", "High").
+
+When you convert a variable into a factor, R internally stores it as an integer where each integer corresponds to a category (or level), but displays the original categories as labels.
+
+The **need to convert data into factors** arises when you want to treat variables as categorical, ensure correct ordering for ordinal data, save memory, and properly represent your data in models or plots.
+
 ```{r}
 mpg_modified %>%
   group_by(cyl) %>%
@@ -58,7 +88,7 @@ mpg_modified %>%
   summarize(average_hwy = mean(hwy), count = n())
 ```
 
-# Math Anxiety data set
+# Math Anxiety data set ("your turn")
 
 We are working with Math anxiety data set, Nagesh and I.
 

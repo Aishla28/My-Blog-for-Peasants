@@ -246,7 +246,31 @@ The following object is masked from 'package:dplyr':
 <section id="look-at-this-mpg-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="look-at-this-mpg-dataset">Look at this mpg dataset</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 234
+Columns: 11
+$ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+$ cyl          &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+$ trans        &lt;chr&gt; "auto(l5)", "manual(m5)", "manual(m6)", "auto(av)", "auto…
+$ drv          &lt;chr&gt; "f", "f", "f", "f", "f", "f", "f", "4", "4", "4", "4", "4…
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+$ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+$ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p…
+$ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact", "c…</code></pre>
+</div>
+</div>
+<section id="purpose-of-glimpse" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-of-glimpse">Purpose of glimpse():</h3>
+<ul>
+<li><p>Provides a compact overview of a dataset, showing variable names, types, and a preview of the values in each column.</p></li>
+<li><p>comes under ‘tidyverse package’.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 234 × 11
    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
@@ -262,6 +286,622 @@ The following object is masked from 'package:dplyr':
  9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
 10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
 # ℹ 224 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+          name     class levels   n missing
+1 manufacturer character     15 234       0
+2        model character     38 234       0
+3        trans character     10 234       0
+4          drv character      3 234       0
+5           fl character      5 234       0
+6        class character      7 234       0
+                                   distribution
+1 dodge (15.8%), toyota (14.5%) ...            
+2 caravan 2wd (4.7%) ...                       
+3 auto(l4) (35.5%), manual(m5) (24.8%) ...     
+4 f (45.3%), 4 (44%), r (10.7%)                
+5 r (71.8%), p (22.2%), e (3.4%) ...           
+6 suv (26.5%), compact (20.1%) ...             
+
+quantitative variables:  
+   name   class    min     Q1 median     Q3  max        mean       sd   n
+1 displ numeric    1.6    2.4    3.3    4.6    7    3.471795 1.291959 234
+2  year integer 1999.0 1999.0 2003.5 2008.0 2008 2003.500000 4.509646 234
+3   cyl integer    4.0    4.0    6.0    8.0    8    5.888889 1.611534 234
+4   cty integer    9.0   14.0   17.0   19.0   35   16.858974 4.255946 234
+5   hwy integer   12.0   18.0   24.0   27.0   44   23.440171 5.954643 234
+  missing
+1       0
+2       0
+3       0
+4       0
+5       0</code></pre>
+</div>
+</div>
+</section>
+<section id="purpose-of-inspect" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-of-inspect">Purpose of inspect():</h3>
+<ul>
+<li>Provides a detailed comparison of the structure and contents of data frames. You use it when you want a deeper inspection of your dataset.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">mpg</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manufacturer</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">model</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trans</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drv</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fl</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">class</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">displ</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.47</td>
+<td style="text-align: right;">1.29</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">▇▆▆▃▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2003.50</td>
+<td style="text-align: right;">4.51</td>
+<td style="text-align: right;">1999.0</td>
+<td style="text-align: right;">1999.0</td>
+<td style="text-align: right;">2003.5</td>
+<td style="text-align: right;">2008.0</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cyl</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.89</td>
+<td style="text-align: right;">1.61</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">▇▁▇▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cty</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">16.86</td>
+<td style="text-align: right;">4.26</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">19.0</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">▆▇▃▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hwy</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">23.44</td>
+<td style="text-align: right;">5.95</td>
+<td style="text-align: right;">12.0</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">27.0</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: left;">▅▅▇▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="purpose-of-skim" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-of-skim">Purpose of skim():</h3>
+<ul>
+<li><p>Comes under ‘skimr’.</p></li>
+<li><p>Provides an in-depth summary of your data, including counts, mean, median, min/max, unique values, and missing values for each variable. You use it when you need detailed description for each column in your dataset, both for numeric and catagorical values.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cyl =</span> <span class="fu">as_factor</span>(cyl),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fl =</span> <span class="fu">as_factor</span>(fl),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drv =</span> <span class="fu">as_factor</span>(drv),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="fu">as_factor</span>(class),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="fu">as_factor</span>(trans)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mpg_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 234
+Columns: 11
+$ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+$ cyl          &lt;fct&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+$ trans        &lt;fct&gt; auto(l5), manual(m5), manual(m6), auto(av), auto(l5), man…
+$ drv          &lt;fct&gt; f, f, f, f, f, f, f, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, r, …
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+$ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+$ fl           &lt;fct&gt; p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, r, …
+$ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact, com…</code></pre>
+</div>
+</div>
+<section id="factors-what-are-those" class="level4">
+<h4 class="anchored" data-anchor-id="factors-what-are-those">Factors?? what are those?</h4>
+<p>A <strong>factor</strong> in R is a data type used to represent <strong>categorical variables</strong>. It stores both the values of the variable (called <strong>levels</strong>) and the actual data. Factors are particularly useful for handling <strong>nominal</strong> (unordered categories) and <strong>ordinal</strong> (ordered categories) data.</p>
+<ul>
+<li><strong>Nominal variables</strong>: Categories that do not have a specific order (e.g., “Male”, “Female”, “Yes”, “No”).</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>Ordinal variables</strong>: Categories that have a meaningful order (e.g., “Low”, “Medium”, “High”).</li>
+</ul>
+<p>When you convert a variable into a factor, R internally stores it as an integer where each integer corresponds to a category (or level), but displays the original categories as labels.</p>
+<p>The <strong>need to convert data into factors</strong> arises when you want to treat variables as categorical, ensure correct ordering for ordinal data, save memory, and properly represent your data in models or plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(hwy), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  cyl   average_hwy count
+  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+1 4            28.8    81
+2 5            28.8     4
+3 6            22.8    79
+4 8            17.6    70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl, fl) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(hwy), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'cyl'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 4
+# Groups:   cyl [4]
+   cyl   fl    average_hwy count
+   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+ 1 4     p            27.8    22
+ 2 4     r            28.3    55
+ 3 4     d            43       3
+ 4 4     c            36       1
+ 5 5     r            28.8     4
+ 6 6     p            25.3    17
+ 7 6     r            22.2    60
+ 8 6     e            17       1
+ 9 6     d            22       1
+10 8     p            20.8    13
+11 8     r            17.5    49
+12 8     e            12.7     7
+13 8     d            17       1</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="math-anxiety-data-set-your-turn" class="level1">
+<h1>Math Anxiety data set (“your turn”)</h1>
+<p>We are working with Math anxiety data set, Nagesh and I.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/MathAnxiety.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 599 Columns: 1
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Age;Gender;Grade;AMAS;RCMAS;Arith
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>math_anxiety</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 599 × 1
+   `Age;Gender;Grade;AMAS;RCMAS;Arith`
+   &lt;chr&gt;                              
+ 1 137,8;Boy;Secondary;9;20;6         
+ 2 140,7;Boy;Secondary;18;8;6         
+ 3 137,9;Girl;Secondary;23;26;5       
+ 4 142,8;Girl;Secondary;19;18;7       
+ 5 135,6;Boy;Secondary;23;20;1        
+ 6 135,0;Girl;Secondary;27;33;1       
+ 7 133,6;Boy;Secondary;22;23;4        
+ 8 139,3;Boy;Secondary;17;11;7        
+ 9 131,7;Girl;Secondary;28;32;2       
+10 134,8;Boy;Secondary;20;30;6        
+# ℹ 589 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   `Age;Gender;Grade;AMAS;RCMAS;Arith`
+   &lt;chr&gt;                              
+ 1 137,8;Boy;Secondary;9;20;6         
+ 2 140,7;Boy;Secondary;18;8;6         
+ 3 137,9;Girl;Secondary;23;26;5       
+ 4 142,8;Girl;Secondary;19;18;7       
+ 5 135,6;Boy;Secondary;23;20;1        
+ 6 135,0;Girl;Secondary;27;33;1       
+ 7 133,6;Boy;Secondary;22;23;4        
+ 8 139,3;Boy;Secondary;17;11;7        
+ 9 131,7;Girl;Secondary;28;32;2       
+10 134,8;Boy;Secondary;20;30;6        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 599
+Columns: 1
+$ `Age;Gender;Grade;AMAS;RCMAS;Arith` &lt;chr&gt; "137,8;Boy;Secondary;9;20;6", "140…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+                               name     class levels   n missing
+1 Age;Gender;Grade;AMAS;RCMAS;Arith character    599 599       0
+                                   distribution
+1 100,1;Boy;Primary;18;16;3 (0.2%) ...         </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">math_anxiety</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">599</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Age;Gender;Grade;AMAS;RCMAS;Arith</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">599</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="st">"../../data/MathAnxiety.csv"</span>,<span class="at">delim =</span><span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 599 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (2): Gender, Grade
+dbl (3): AMAS, RCMAS, Arith
+num (1): Age
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+     Age Gender Grade      AMAS RCMAS Arith
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  1378 Boy    Secondary     9    20     6
+ 2  1407 Boy    Secondary    18     8     6
+ 3  1379 Girl   Secondary    23    26     5
+ 4  1428 Girl   Secondary    19    18     7
+ 5  1356 Boy    Secondary    23    20     1
+ 6  1350 Girl   Secondary    27    33     1
+ 7  1336 Boy    Secondary    22    23     4
+ 8  1393 Boy    Secondary    17    11     7
+ 9  1317 Girl   Secondary    28    32     2
+10  1348 Boy    Secondary    20    30     6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="ot">&lt;-</span> math_anxiety <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> Age<span class="sc">/</span><span class="dv">120</span>, </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(math_anxiety_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 599
+Columns: 6
+$ Age    &lt;dbl&gt; 11.48333, 11.72500, 11.49167, 11.90000, 11.30000, 11.25000, 11.…
+$ Gender &lt;fct&gt; Boy, Boy, Girl, Girl, Boy, Girl, Boy, Boy, Girl, Boy, Boy, Boy,…
+$ Grade  &lt;chr&gt; "Secondary", "Secondary", "Secondary", "Secondary", "Secondary"…
+$ AMAS   &lt;dbl&gt; 9, 18, 23, 19, 23, 27, 22, 17, 28, 20, 16, 20, 21, 36, 16, 27, …
+$ RCMAS  &lt;dbl&gt; 20, 8, 26, 18, 20, 33, 23, 11, 32, 30, 10, 4, 23, 26, 24, 21, 3…
+$ Arith  &lt;dbl&gt; 6, 6, 5, 7, 1, 1, 4, 7, 2, 6, 2, 5, 2, 6, 2, 7, 2, 4, 7, 3, 8, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+    name     class levels   n missing
+1 Gender character      2 599       0
+2  Grade character      2 599       0
+                                   distribution
+1 Boy (53.9%), Girl (46.1%)                    
+2 Primary (66.9%), Secondary (33.1%)           
+
+quantitative variables:  
+   name   class min     Q1 median     Q3  max       mean         sd   n missing
+1   Age numeric  37 1061.5   1208 1418.5 1875 1246.49249 223.112183 599       0
+2  AMAS numeric   4   18.0     22   26.5   45   21.98164   6.597962 599       0
+3 RCMAS numeric   1   14.0     19   25.0   41   19.24040   7.566802 599       0
+4 Arith numeric   0    4.0      6    7.0    8    5.30217   2.105220 599       0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_AMAS =</span> <span class="fu">mean</span>(AMAS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Gender average_AMAS count
+  &lt;fct&gt;         &lt;dbl&gt; &lt;int&gt;
+1 Boy            21.2   323
+2 Girl           22.9   276</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_RCMAS =</span> <span class="fu">mean</span>(RCMAS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Gender average_RCMAS count
+  &lt;fct&gt;          &lt;dbl&gt; &lt;int&gt;
+1 Boy             18.1   323
+2 Girl            20.6   276</code></pre>
 </div>
 </div>
 

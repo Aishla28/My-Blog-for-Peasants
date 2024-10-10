@@ -1,0 +1,428 @@
+---
+title: "day-5"
+---
+
+# Groups
+
+Today, we are learning all about **box plots**.
+
+-   data visualization that gives us an idea of the distribution of a Quant variable, for each *level* of another Qual variable.
+
+-   boxplot focuses on the mean and quartiles. It uses sequence number or ranks of Quant variable.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(palmerpenguins) # Our new favourite dataset
+```
+
+```{r}
+wages <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/stevedata/gss_wages.csv")
+```
+
+```{r}
+glimpse(wages)
+```
+
+```{r}
+skimr::skim(wages)
+```
+
+```{r}
+inspect(wages)
+```
+
+```{r}
+wages_clean <-
+  wages %>%
+  tidyr::drop_na(realrinc) # choose column or leave blank to choose all
+```
+
+```{r}
+wages_clean <-  wages %>% tidyr::drop_na(realrinc)
+```
+
+### **What is the basic distribution of realrinc?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(realrinc ~ "Income") %>% # Dummy X-axis "variable"
+  gf_labs(
+    title = "Plot 1A: Income has a skewed distribution",
+    subtitle = "Many outliers on the high side"
+  )
+```
+
+-   Income is a very skewed distribution, as might be expected.
+
+-   Presence of many higher-side outliers is noted.
+
+### **Is `realrinc` affected by `gender`?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ realrinc) %>%
+  gf_labs(title = "Plot 2A: Income by Gender")
+```
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ log10(realrinc)) %>%
+  gf_labs(title = "Plot 2B: Log(Income) by Gender")
+```
+
+-   **log10(realrinc)** means we're using a math trick to shrink down the income numbers so they're easier to compare (think of it like zooming out to see the differences better).
+
+-   both codes are making pictures to show how much each gender makes, but the second one uses a "zoomed-out" version of income numbers to make things clearer.
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ realrinc, fill = ~gender) %>%
+  gf_refine(scale_x_log10()) %>%
+  gf_labs(title = "Plot 2C: Income filled by Gender, log scale")
+```
+
+-   The IQR for `male`s is smaller than the IQR for `female`s. There is less variation in the middle ranges of `realrinc` for men.
+
+-   There are outliers on both sides, indicating that there may be many people who make very small amounts of money and large amounts of money in both `genders`.
+
+### **Is `realrinc` affected by `educcat`?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(educcat ~ realrinc) %>%
+  gf_labs(title = "Plot 3A: Income by Education Category")
+```
+
+```{r}
+wages_clean %>%
+  gf_boxplot(educcat ~ log10(realrinc)) %>%
+  gf_labs(title = "Plot 3B: Log(Income) by Education Category")
+```
+
+```{r}
+wages_clean %>%
+  gf_boxplot(
+    reorder(educcat, realrinc, FUN = median) ~ log(realrinc),
+    fill = ~educcat,
+    alpha = 0.3
+  ) %>%
+  gf_labs(title = "Plot 3C: Log(Income) by Education Category, sorted") %>%
+  gf_labs(
+    x = "Log Income",
+    y = "Education Category"
+  )
+```
+
+```{r}
+wages_clean %>%
+  gf_boxplot(reorder(educcat, realrinc, FUN = median) ~ realrinc,
+    fill = ~educcat,
+    alpha = 0.5
+  ) %>%
+  gf_refine(scale_x_log10()) %>%
+  gf_labs(
+    title = "Plot 3D: Income by Education Category, sorted",
+    subtitle = "Log Income"
+  ) %>%
+  gf_labs(
+    x = "Income",
+    y = "Education Category"
+  )
+```
+
+-   realrinc rises with educcat, which is to be expected.
+
+-   However, there are people with very low and very high income in all categories of educcat
+
+-   Hence educcat alone may not be a good predictor for realrinc.
+
+### **Is the target variable `realrinc` affected by combinations of Qual factors `gender`, `educcat`, `maritalcat` and `childs`?**
+
+```{r}
+wages %>%
+  drop_na() %>%
+  gf_boxplot(reorder(educcat, realrinc) ~ log10(realrinc),
+    fill = ~educcat,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(vars(childs)) %>%
+  gf_refine(scale_fill_brewer(type = "qual", palette = "Dark2")) %>%
+  gf_labs(
+    title = "Plot 4A: Log Income by Education Category and Family Size",
+    x = "Log income",
+    y = "No. of Children"
+  )
+```
+
+```{r}
+wages %>%
+  drop_na() %>%
+  mutate(childs = as_factor(childs)) %>%
+  gf_boxplot(childs ~ log10(realrinc),
+    group = ~childs,
+    fill = ~childs,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(~gender) %>%
+  gf_refine(scale_fill_brewer(type = "qual", palette = "Set3")) %>%
+  gf_labs(
+    title = "Plot 4B: Log Income by Gender and Family Size",
+    x = "Log income",
+    y = "No. of Children"
+  )
+```
+
+-   From Figure 6, we see that realrinc increases with educcat, across (almost) all family sizes childs.
+
+-   However, this trend breaks a little when family sizes childs is large, say \>= 7. Be aware that the data observations for such large families may be sparse and this inference may not be necessarily valid.
+
+-   From Figure 7, we see that the effect of childs on realrinc is different for each gender! For females, the income steadily drops with the number of children, whereas for males it actually increases up to a certain family size before decreasing again.
+
+# Change
+
+## Correlations
+
+```{r}
+library(tidyverse) # Tidy data processing and plotting
+library(ggformula) # Formula based plots
+library(mosaic) # Our go-to package
+library(skimr) # Another Data inspection package
+library(kableExtra) # Making good tables with data
+
+library(GGally) # Corr plots
+library(corrplot) # More corrplots
+library(ggExtra) # Making Combination Plots
+
+library(devtools)
+devtools::install_github("rpruim/Lock5withR")
+library(Lock5withR) # Datasets
+library(palmerpenguins) # A famous dataset
+
+library(easystats) # Easy Statistical Analysis and Charts
+library(correlation) # Different Types of Correlations
+# From the easystats collection of packages
+```
+
+In statistical terms we use correlation to denote association between two quantitative variables. We also assume that the association is **linear**, that one variable increases or decreases a fixed amount for a unit increase or decrease in the other.
+
+```{r}
+HollywoodMovies2011 -> movies
+glimpse(movies)
+```
+
+## **Scatter Plots**
+
+```{r}
+movies_quant <- movies %>%
+  drop_na() %>%
+  select(where(is.numeric))
+movies_quant
+```
+
+```{r}
+movies %>%
+  gf_point(DomesticGross ~ WorldGross) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Gross Earnings: Domestics vs World"
+  )
+```
+
+```{r}
+movies %>%
+  gf_point(Profitability ~ OpeningWeekend) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movies: Does Opening Week Earnings indicate Profitability?"
+  )
+```
+
+```{r}
+movies %>%
+  gf_point(RottenTomatoes ~ AudienceScore) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Ratings: Tomatoes vs Audience"
+  )
+```
+
+```{r}
+movies %>%
+  drop_na() %>%
+  gf_point(RottenTomatoes ~ AudienceScore,
+    color = ~Genre
+  ) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Ratings: Trends by Genre"
+  )
+```
+
+-   DomesticGross and World Gross are related, though there are fewer movies at the high end of DomesticGross…
+
+-   AudienceScore and RottenTomatoes seem clearly related…both increase together.
+
+-   OpeningWeek and Profitability are also related in a linear way. There are just two movies which have been extremely profitable..but they do not influence the slope of the trend line too much, because of their location midway in the range of OpeningWeek. Influence is something that is a key concept in Linear Regression.
+
+-   By and large, there are only small variations in slope across Genres.
+
+## **Quantizing Correlation**
+
+#### Points to remember
+
+the **correlation score** (often called the **correlation coefficient**) is a number that tells you how strongly two things are related or connected.
+
+-   **1** means **perfect positive correlation**: when one variable goes up, the other one always goes up in a straight line.
+
+-   **-1** means **perfect negative correlation**: when one variable goes up, the other one always goes down in a straight line.
+
+-   **0** means **no correlation**: the variables don’t seem to be related at all.
+
+examples-
+
+#### Examples-
+
+-   If you were looking at **height and weight**, you might find a **positive correlation** because, in general, taller people tend to weigh more.
+
+-   If you looked at **exercise and weight**, you might see a **negative correlation**, meaning the more someone exercises, the lower their weight tends to be.
+
+<!-- -->
+
+-   If you were looking at **height and weight**, you might find a **positive correlation** because, in general, taller people tend to weigh more.
+
+-   If you looked at **exercise and weight**, you might see a **negative correlation**, meaning the more someone exercises, the lower their weight tends to be.
+
+```{r}
+GGally::ggpairs(
+  movies %>% drop_na(),
+  # Select Quant variables only for now
+  columns = c(
+    "RottenTomatoes", "AudienceScore", "DomesticGross", "ForeignGross"
+  ),
+  switch = "both",
+  # axis labels in more traditional locations(left and bottom)
+
+  progress = FALSE,
+  # no compute progress messages needed
+
+  # Choose the diagonal graphs (always single variable! Think!)
+  diag = list(continuous = "barDiag"),
+  # choosing histogram,not density
+
+  # Choose lower triangle graphs, two-variable graphs
+  lower = list(continuous = wrap("smooth", alpha = 0.3, se = FALSE)),
+  title = "Movies Data Correlations Plot #1"
+)
+```
+
+```{r}
+GGally::ggpairs(
+  movies %>% drop_na(),
+  # Select Quant variables only for now
+  columns = c(
+    "Budget", "Profitability", "DomesticGross", "ForeignGross"
+  ),
+  switch = "both",
+  # axis labels in more traditional locations(left and bottom)
+
+  progress = FALSE,
+  # no compute progress messages needed
+
+  # Choose the diagonal graphs (always single variable! Think!)
+  diag = list(continuous = "barDiag"),
+  # choosing histogram,not density
+
+  # Choose lower triangle graphs, two-variable graphs
+  lower = list(continuous = wrap("smooth", alpha = 0.3, se = FALSE)),
+  title = "Movies Data Correlations Plot #2"
+)
+```
+
+-   The Budget variable has good correlation scores with DomesticGross and ForeignGross.
+
+-   Profitability and Budget seem to have a very slight negative correlation, but this does not appear to be significant.
+
+## Doing a correlation Test
+
+```{r}
+mosaic::cor_test(Profitability ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Profitability vs Budget"
+  )
+```
+
+```{r}
+mosaic::cor_test(DomesticGross ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Domestic Gross vs Budget"
+  )
+```
+
+```{r}
+mosaic::cor_test(ForeignGross ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Foreign Gross vs Budget"
+  )
+```
+
+```{r}
+glimpse(mtcars)
+```
+
+```{r}
+## Target variable: mpg
+## Calculate all correlations
+cor <- correlation::correlation(mtcars)
+cor
+```
+
+-   In a correlation test, there is something called an uncertainty band - it gives you the range \[x +- y\]. This uncertainity should not be such that the range falls both on negative as well as positive. The correlation score should either be +ve or -ve. It should never be both.
+
+```{r}
+cor %>%
+  # Filter for target variable `mpg` and plot
+  filter(Parameter1 == "mpg") %>%
+  gf_point(r ~ reorder(Parameter2, r), size = 4) %>%
+  gf_errorbar(CI_low + CI_high ~ reorder(Parameter2, r),
+    width = 0.5
+  ) %>%
+  gf_hline(yintercept = 0, color = "grey", linewidth = 2) %>%
+  gf_labs(
+    title = "Correlation Errorbar Chart",
+    subtitle = "Target variable: mpg",
+    x = "Predictor Variable",
+    y = "Correlation Score with mpg"
+  )
+```
+
+-   Several variables are negatively correlated and some are positively correlated with ’mpg\`. (The grey line shows “zero correlation”)
+
+-   Since none of the error bars straddle zero, the correlations are mostly significant.
+
+```{r}
+library(ggExtra)
+
+penguins %>%
+  drop_na() %>%
+  gf_point(body_mass_g ~ flipper_length_mm, colour = ~species) %>%
+  gf_smooth(method = "lm") %>%
+  gf_refine(scale_colour_brewer(palette = "Accent")) %>%
+  gf_labs(title = "Scatter Plot with Marginal Densities") %>%
+  ggExtra::ggMarginal(
+    type = "density", groupColour = TRUE,
+    groupFill = TRUE, margins = "both"
+  )
+```

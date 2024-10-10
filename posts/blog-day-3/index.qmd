@@ -1,5 +1,5 @@
 ---
-title: "blog-aish"
+title: "Day-3"
 ---
 
 # day-3
@@ -191,4 +191,138 @@ taxi_modified %>%
   gf_labs( 
     title = "Plot F: Counts of Tips by Hour"
     )
+```
+
+## Analysing the Apartment Dataset ("Your turn")
+
+```{r}
+apartments <- read_csv("../../data/apartments.csv")
+apartments
+```
+
+```{r}
+glimpse(apartments)
+```
+
+#### Seems like we are going to have to use the delimiter ;)
+
+```{r}
+apartments <- read_delim(file = "../../data/apartments.csv",delim =";")
+```
+
+the **delimiter (`delim`)** refers to the **character** that separates the columns of data in the file. In this case, the delimiter is specified as a **semicolon (`;`)**. The **`delim = ";"`** argument tells R that the **columns** in the CSV file are separated by **semicolons**.
+
+```{r}
+glimpse(apartments)
+```
+
+```{r}
+skim(apartments)
+```
+
+```{r}
+inspect(apartments)
+```
+
+## Fertility dataset
+
+```{r}
+Fertility <- read_csv("../../data/Fertility.csv")
+Fertility
+```
+
+```{r}
+glimpse(Fertility)
+```
+
+```{r}
+skim(Fertility)
+```
+
+```{r}
+inspect(Fertility)
+```
+
+We need to convert six of these variables into factors.
+
+```{r}
+Fertility_modified <- Fertility %>% dplyr::mutate(
+  morekids = as_factor(morekids),
+  gender1 = as_factor(gender1),
+  gender2 = as_factor(gender2),
+  afam = as_factor(afam),
+  hispanic = as_factor(hispanic),
+  other = as_factor(other)
+)
+
+glimpse(Fertility_modified)
+```
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~morekids,
+    fill = ~gender1,
+    position = "dodge",
+  ) %>%
+  gf_labs(title = "Distribution gender1 based on morekids")
+
+```
+
+-   this graph shows that within gender1, there are more individuals that do not have another kid. Ratio of men:women is closer to equal, with men being more, for the ones that do have more kids.
+
+-   It appears that more individuals under the category of gender1 have chosen not to have more than one little menaces in their lives.
+
+Let's now see what's the case with gender2.
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~morekids,
+    fill = ~gender2,
+    position = "dodge",
+  ) %>%
+  gf_labs(title = "Distribution gender2 based on morekids")
+```
+
+-   Here, the ratio of women is more than men in both the cases.
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~age | ~gender2,
+         fill = ~gender1,
+         position = "dodge"
+  ) %>%
+  gf_labs(title = "Distribution of Age by gender1 and gender2")
+```
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~work,
+         fill = ~afam,
+  ) %>%
+  gf_labs(title = "Distribution of Work Hours by afam")
+```
+
+-   Here, the real problem is that I have terribly, horribly failed at understanding what 'afam' actually is. Is it short for -' African American', or is it - 'Alliance for Action to Strengthen Marriages and Family' (suggested by google)? The former obviously makes more sense.
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~work,
+         fill = ~gender1,
+  ) %>%
+  gf_labs(title = "Distribution of Work Hours by gender1")
+```
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~work,
+         fill = ~gender2,
+  ) %>%
+  gf_labs(title = "Distribution of Work Hours by gender2")
+```
+
+```{r}
+Fertility_modified %>%
+  gf_bar(~hispanic,
+  ) %>%
+  gf_labs(title = "Distribution of hispanic")
 ```
