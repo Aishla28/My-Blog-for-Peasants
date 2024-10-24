@@ -1,0 +1,63 @@
+---
+title: "Day-7"
+---
+
+# **Inference for Two Independent Means**
+
+> ### "To be nobody but myself – in a world which is doing its best, night and day, to make you everybody else – means to fight the hardest battle which any human being can fight, and never stop fighting."
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic) # Our go-to package
+library(ggformula)
+library(infer) # An alternative package for inference using tidy data
+library(broom) # Clean test results in tibble form
+library(skimr) # data inspection
+library(resampledata3) # Datasets from Chihara and Hesterberg's book
+library(openintro) # datasets
+library(gt) # for tables
+library(patchwork) # Arranging Plots
+library(ggprism) # Interesting Categorical Axes
+library(supernova) # Beginner-Friendly ANOVA Tables
+```
+
+```{r}
+data("MathAnxiety",package = "resampledata")
+MathAnxiety
+MathAnxiety_inspect <- inspect(MathAnxiety)
+MathAnxiety_inspect$categorical
+MathAnxiety_inspect$quantitative
+```
+
+```{r}
+MathAnxiety %>%
+  gf_density(
+    ~ AMAS,
+    fill = ~ Gender,
+    alpha = 0.5,
+    title = "Math Anxiety Score Densities",
+    subtitle = "Boys vs Girls"
+  )
+##
+MathAnxiety %>%
+  gf_boxplot(
+    AMAS ~ Gender,
+    fill = ~ Gender,
+    alpha = 0.5,
+    title = "Math Anxiety Score Box Plots",
+    subtitle = "Boys vs Girls"
+  ) 
+##
+MathAnxiety %>% count(Gender)
+MathAnxiety %>% 
+  group_by(Gender) %>% 
+  summarise(mean = mean(AMAS))
+```
+
+# **Comparing Multiple Means with ANOVA**
+
+```{r}
+frogs_orig <- read_csv("../../data/frogs.csv")
+frogs_orig
+```

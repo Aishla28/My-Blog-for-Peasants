@@ -1,0 +1,163 @@
+---
+title: "Dataset-1: Do Women live longer?"
+author: "Aish"
+---
+
+# Do Women live Longer?
+
+I don't know yet. If yes, then good for me I suppose :)
+
+Let's find out.
+
+First, we gotta set up our document with relevant packages.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(skimr)
+library(ggformula)
+```
+
+Now, let's import the dataset.
+
+```{r}
+women <- read_delim(file = "../../data/women.csv",delim =";")
+```
+
+```{r}
+glimpse(women)
+view(women)
+```
+
+```{r}
+skim(women)
+```
+
+```{r}
+inspect(women)
+```
+
+## Data Dictionary
+
+### Qualitative Variables
+
+-   ***Entity (chr):*** Name of the country.
+
+-   ***Code (chr):*** code of the entity.
+
+-   ***year (chr):*** year of entry.
+
+-   ***Continent (chr):*** continents from which the entries belong (fct).
+
+### Quantitative Variables
+
+-   ***LifeExpFemale (dbl):*** life expectancy of females of the respective country.
+
+-   ***LifeExpMale (dbl):*** life expectancy of males of the respective country.
+
+-   ***Population (dbl):*** Population of the country.
+
+```{r}
+women_modified <- women %>% 
+  filter(Year == 2015)
+glimpse(women_modified)
+```
+
+So, the reason why I have filtered out the data on the basis on year 2015 is so that I can replicate the table in Arvind's website. I suppose, it has been done also because it is easier to analyse such context while keeping the year constant. Why? I think it is so because there are other vital factors ( like pollution index, poverty index, cultural and 'current' affairs etc.) that play a crucial role in determining the life expectancy, and they tend to change overtime.
+
+Now, I will drop the missing values.
+
+```{r}
+women_modified <- women_modified %>% drop_na()
+
+glimpse(women_modified)
+```
+
+Now, we shall do some renaming and mutating to make our lives easier.
+
+```{r}
+women_modified <- women_modified %>% 
+  mutate(
+    life_exp_female = `Life expectancy - Sex: female - Age: at birth - Variant: estimates` / 10,
+    life_exp_male = `Life expectancy - Sex: male - Age: at birth - Variant: estimates` / 10,
+    Continent = as.factor(Continent)
+  )
+
+glimpse(women_modified)
+```
+
+Here we go!
+
+I shall now recreate the chart that is given on Arvind's website.
+
+```{r}
+women_modified %>%
+  gf_point(life_exp_female ~ life_exp_male) %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Life expectancy across years"
+  )
+```
+
+This is a scatter plot! It is depicting the correlation between life expectancy between males and females. I am unable to recreate the exact replica of the graph; I can't figure out how to. However, it seems like we can make do with this for the time being.
+
+When we look at this graph carefully, we see that almost all the points are placed such that for every point, **x ( male life expectancy) \< y(female life expectancy)**.
+
+To better understand what is going on, I will add a line to the graph.
+
+```{r}
+women_modified %>%
+  gf_point(life_exp_female ~ life_exp_male) %>%
+  gf_lm() %>% 
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Life expectancy across years"
+  )
+```
+
+#### Observations
+
+We see that while it may appear that the slope (m) = 1, it is not true. When we look carefully, we see that vale on the x axis starts from 50 onwards, whereas it start from 60 onwards on y axis. Hence, m is not 1.
+
+**In the website's chart**, it is clearly seen that life expectancy for both the genders is more or less the **same in countries with bigger populations**.
+
+#### What does the dashed line in the chart represent?
+
+it represents slop of the graph when m = 1, meaning when there is a 1:1 correlation between both the variables. It is also called the *equality line*.
+
+### What pre-processing of the data was required to create the chart?
+
+-   Filtering by year
+
+-   dropping rows with missing data
+
+-   renaming and mutating data
+
+    -   I used mutate to both rename and mutate the data variables
+
+    -   renames the life expectancy variables and then divided them by 10 to get the exact age.
+
+    -   I converted 'continent' variable to factor as it had 7 levels. It seemed only fair to convert it to a factor.
+
+### What research activity might have been carried out to obtain the data graphed here? 
+
+Life expectancy is calculated at different stages and ages. I do not think the researchers went around on the streets gathering data themselves, although that would've been fun. However, I believe this data might have been obtained through different sources over the years. For example, they would've contacted WHO and other trusted organizations to gather this data. Government websites, and hospitals from across the world would've been contacted for the same.
+
+It is also possible that physical surveys were conducted by authorities, especially in smaller countries where it is probably not possible to find tidy data, and accessibility through digital mediums is not entirely possible.
+
+### What might be the Hypothesis / Research Questions, based on the Chart?
+
+-   Which gender lives longer in a particular city?
+
+-   Do women live longer than men in countries with big populations?
+
+-   Women tend to live a longer and happier life, no matter where they are \[Hypothesis\].
+
+-   How would you define a continent in terms of life expectancy?
+
+-   How does life expectancy of women and men differ in different countries within the same continent?
+
+### Inference
+
+Across most countries, women consistently live longer than men, with nearly all data points above the equality line. In Countries with bigger populations, life expectancy is mostly same between both the genders. **Despite being considered the weaker gender, women outlive the 'stronger' men**.

@@ -1,0 +1,67 @@
+---
+title: "day-6"
+---
+
+# Samples, Populations, Statistics and Inference
+
+-   According to the CLT, as the **sample size increases**, the distribution of the sample means becomes more tightly concentrated around the population mean, and the **sampling distribution** becomes narrower.
+
+-   **Sample size**: number of observations or data points in sample. ***eg -*** If you are conducting a survey and collect responses from 100 people, your sample size is 100.
+
+-   shorter the sample, more inaccuracies.
+
+-   As the sample becomes longer, the estimate of the mean becomes narrower.
+
+Since we would always work with a sample mean, it is not possible to know what the exact population mean is. However, there is something called as a **confidence interval**, whisk is the standard deviation around the sample mean. With confidence interval, we can say that the probability of population mean being within this range is rather very high.
+
+-   narrow confidence intervals correlate to high accuracy of the sample set.
+
+# Basics of Randomization Tests
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(infer)
+library(broom) # Clean test results in tibble form
+library(resampledata) # Datasets from Chihara and Hesterberg's book
+library(openintro) # More datasets
+```
+
+As we will notice, the process of Statistical Inference is an attitude: **ain’t nothing happenin’!** We look at data that we might have received or collected ourselves, and look at it with this attitude, seemingly, of some disbelief. We *state* either that:
+
+a.  there is really nothing happening with our research question, and that anything we see in the data is the outcome of random chance.
+
+b.  the value/statistic indicated by the data is off the mark and ought to be something else.
+
+We then calculate how slim the chances are of the given data sample showing up like that, **given our belief**. It is a distance measurement of sorts. If those chances are too low, then that might alter our belief. This is the attitude that lies at the heart of *Hypothesis Testing*.
+
+### **Case Study #1: Toy data**
+
+```{r}
+set.seed(40)  # for replication
+# Data as individual vectors ( for t.tests etc)
+y <- rnorm(50, mean = 2, sd = 2)
+
+# And as tibble too
+mydata <- tibble(y = y)
+mydata
+```
+
+### **Inspecting and Charting Data**
+
+```{r}
+mydata %>%
+    gf_density(~y) %>%
+    gf_fitdistr(dist = "dnorm") %>%
+    gf_labs(title = "Densities of Original Data Variables", subtitle = "Compared with Normal Density")
+```
+
+-   The variable y appear to be centred around 2
+
+-   It does not seem to be normally distributed…
+
+**Research Question** - Could the mean of the population μ, from which y has been drawn, be zero?
+
+**Assumption** - variable does not appear to be normally distributed. This would affect the test we can use to make inferences about the population mean.

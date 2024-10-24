@@ -1,0 +1,110 @@
+---
+title: "Dataset-3: Hearing loss in children"
+---
+
+## Hearing loss in children
+
+Let's set up our document with libraries.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(skimr)
+library(ggformula)
+```
+
+we shall now import our dataset.
+
+```{r}
+ome <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/MASS/OME.csv")
+glimpse(ome)
+print(ome)
+```
+
+```{r}
+skim(ome)
+```
+
+```{r}
+inspect(ome)
+```
+
+## Data Dictionary
+
+### Qualitative Variables
+
+-   ***OME (chr):*** Otitis Media with Effusion, i.e. fluid in the middle ear
+
+-   ***Noise(chr):*** condition of noise present during the trials.
+
+### Quantitative Variables
+
+-   ***rownames (dbl):*** serial number of the row.
+
+-   ***ID (dbl):*** ? \[identifier I suppose\]
+
+-   ***Age (dbl):*** age of the individual.
+
+-   ***Loud (dbl):*** loudness level.
+
+-   ***Correct (dbl):*** number of correct responses.
+
+-   ***Trials (dbl):*** number of trials.
+
+**Target Variable** -
+
+**Predictor variable** -
+
+Now, I will mutate some variables and turn them into factors.
+
+```{r}
+ome_modified <- ome %>% 
+  mutate(
+    ID = as.factor(ID),
+    OME = as.factor(OME),
+    Noise = as.factor(Noise),
+    Loud = as.factor(Loud)
+  )
+
+glimpse(ome_modified)
+print(ome_modified)
+```
+
+Great, now we shall move on to our questions.
+
+### What research activity might have been carried out to obtain the data graphed here?
+
+-   Let's say that maybe as a fun activity, hearing test might have been conducted in one of the classrooms in a school. Children were asked to raise their hands upon hearing the test signal. While many children did raise their hands, some did not. This is where the data collection began.
+
+-   in a playground, music starts to play on the loudspeaker, expecting all children to react and turn towards it. However, some of our outliers do not react to the sudden noise.
+
+-   Children are being taught to cross the road and are asked to be aware of the honking of the cars. Again, there are some who do not react to the honks.
+
+#### *The graph is a box plot!*
+
+I was unable to plot the graph.
+
+### Questions that the Graph seeks to answer
+
+-   is there any difference in the successful detection score between children with low, high and N/A incidence of OME?
+
+-   How does the incidence of OME during childhood affect the successful detection score for noise-like and distinct test signals?
+
+### What pre-processing of the data was required to create the chart?
+
+mutating variables into factors.
+
+### Inference
+
+-   **High Incidence:** Children with a high incidence of OME generally have higher detection scores compared to those with a low incidence.
+
+<!-- -->
+
+-   **Low Incidence:** The detection scores for children with a low incidence are more spread out, with a wider range of scores.
+
+-   **Distinct Signal:** Children with a distinct test signal tend to have higher detection scores than those with a noise-like signal. This indicates that a clearer test signal is easier to detect.
+
+<!-- -->
+
+-   **Noise-Like Signal:** Detection scores for noise-like signals are more variable, suggesting that distinguishing the signal from background noise is more challenging.

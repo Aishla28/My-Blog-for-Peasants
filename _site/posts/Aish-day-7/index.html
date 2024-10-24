@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Day-7 – My-Blog-for-Peasants</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My-Blog-for-Peasants</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Day-7</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="inference-for-two-independent-means" class="level1">
+<h1><strong>Inference for Two Independent Means</strong></h1>
+<blockquote class="blockquote">
+<h3 id="to-be-nobody-but-myself-in-a-world-which-is-doing-its-best-night-and-day-to-make-you-everybody-else-means-to-fight-the-hardest-battle-which-any-human-being-can-fight-and-never-stop-fighting." class="anchored" data-anchor-id="inference-for-two-independent-means">“To be nobody but myself – in a world which is doing its best, night and day, to make you everybody else – means to fight the hardest battle which any human being can fight, and never stop fighting.”</h3>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic) <span class="co"># Our go-to package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer) <span class="co"># An alternative package for inference using tidy data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'infer'
+
+The following objects are masked from 'package:mosaic':
+
+    prop_test, t_test</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># Clean test results in tibble form</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># data inspection</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(resampledata3) <span class="co"># Datasets from Chihara and Hesterberg's book</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'resampledata3'
+
+The following object is masked from 'package:datasets':
+
+    Titanic</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro) <span class="co"># datasets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: airports
+Loading required package: cherryblossom
+Loading required package: usdata
+
+Attaching package: 'openintro'
+
+The following object is masked from 'package:mosaic':
+
+    dotPlot
+
+The following objects are masked from 'package:lattice':
+
+    ethanol, lsegments</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt) <span class="co"># for tables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'gt'
+
+The following object is masked from 'package:openintro':
+
+    sp500</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) <span class="co"># Arranging Plots</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggprism) <span class="co"># Interesting Categorical Axes</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(supernova) <span class="co"># Beginner-Friendly ANOVA Tables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"MathAnxiety"</span>,<span class="at">package =</span> <span class="st">"resampledata"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>MathAnxiety</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Age Gender     Grade AMAS RCMAS Arith
+1   137.8    Boy Secondary    9    20     6
+2   140.7    Boy Secondary   18     8     6
+3   137.9   Girl Secondary   23    26     5
+4   142.8   Girl Secondary   19    18     7
+5   135.6    Boy Secondary   23    20     1
+6   135.0   Girl Secondary   27    33     1
+7   133.6    Boy Secondary   22    23     4
+8   139.3    Boy Secondary   17    11     7
+9   131.7   Girl Secondary   28    32     2
+10  134.8    Boy Secondary   20    30     6
+11  141.3    Boy Secondary   16    10     2
+12  158.0    Boy Secondary   20     4     5
+13  155.1    Boy Secondary   21    23     2
+14  132.7    Boy Secondary   36    26     6
+15  134.1    Boy Secondary   16    24     2
+16  137.9    Boy Secondary   27    21     7
+17  132.6   Girl Secondary   28    30     2
+18  136.6   Girl Secondary   18    26     4
+19  146.7    Boy Secondary   29    18     7
+20  134.1   Girl Secondary   31    12     3
+21  135.4    Boy Secondary   21    15     8
+22  133.4    Boy Secondary   24    12     7
+23  137.6   Girl Secondary   17     8     7
+24  132.2    Boy Secondary   25    15     6
+25  141.5    Boy Secondary    9     3     3
+26  133.2    Boy Secondary   17    10     0
+27  133.6    Boy Secondary   37    30     3
+28  141.1    Boy Secondary   30    19     4
+29  143.4    Boy Secondary   21    18     4
+30  156.8    Boy Secondary   31    26     3
+31  144.4   Girl Secondary   35    21     4
+32  166.1    Boy Secondary   24    18     8
+33  144.2    Boy Secondary   21    16     2
+34  146.2   Girl Secondary   33    34     1
+35  151.2   Girl Secondary   27    14     5
+36  151.2    Boy Secondary   24    19     6
+37  143.6   Girl Secondary   20     7     3
+38  153.3    Boy Secondary    9    22     5
+39  152.6    Boy Secondary   25    23     0
+40  143.6   Girl Secondary   32    26     6
+41  151.2   Girl Secondary   19    10     1
+42  152.2    Boy Secondary   13    13     4
+43  161.5    Boy Secondary   29    30     4
+44  143.3   Girl Secondary   21    17     4
+45  151.3   Girl Secondary   23    15     2
+46  174.7    Boy Secondary   27    18     4
+47  146.2    Boy Secondary   20     4     4
+48  155.1    Boy Secondary   21    16     3
+49  149.1   Girl Secondary   20    21     4
+50  149.3   Girl Secondary   33    32     5
+51  144.5    Boy Secondary   21    32     1
+52  143.2   Girl Secondary   15    17     7
+53  150.3   Girl Secondary   25    33     1
+54  147.8    Boy Secondary   25    23     7
+55  145.0    Boy Secondary   12    14     3
+56  150.8   Girl Secondary   12    12     6
+57  145.8   Girl Secondary   28    17     4
+58  152.2    Boy Secondary   36    41     0
+59  145.6   Girl Secondary   13    13     4
+60  163.4   Girl Secondary   23    14     4
+61  158.6   Girl Secondary   25    17     3
+62  164.5    Boy Secondary   23    10     3
+63  154.3    Boy Secondary   13    16     4
+64  158.6    Boy Secondary   27    25     0
+65  159.4   Girl Secondary   16    18     5
+66  155.4    Boy Secondary   45    23     3
+67  164.3   Girl Secondary   25    23     0
+68  157.7    Boy Secondary   14    19     5
+69  162.8    Boy Secondary   25    25     4
+70  163.9    Boy Secondary   23     6     4
+71  157.3    Boy Secondary   28    15     0
+72  162.2    Boy Secondary   18     9     3
+73  162.3    Boy Secondary   17     8     5
+74  159.1   Girl Secondary   26    18     3
+75  160.6   Girl Secondary   18    15     3
+76  159.6    Boy Secondary   14     5     2
+77  162.0    Boy Secondary   14    11     6
+78  163.8    Boy Secondary   10    23     8
+79  175.9    Boy Secondary   16    18     6
+80  163.5   Girl Secondary   14    20     7
+81  169.1    Boy Secondary   11    15     7
+82  161.1    Boy Secondary   23    21     3
+83  160.0    Boy Secondary   22    23     7
+84  170.3    Boy Secondary   18    15     2
+85  162.6   Girl Secondary   15    13     5
+86  161.1    Boy Secondary   27    21     2
+87  155.9   Girl Secondary   31    23     3
+88  166.8    Boy Secondary   19     7     6
+89  178.9    Boy Secondary   20    27     5
+90  157.9    Boy Secondary   18    21     3
+91  157.7    Boy Secondary   15    11     5
+92  179.1    Boy Secondary   37    31     5
+93  160.6   Girl Secondary   14    23     8
+94  180.3    Boy Secondary   19     6     4
+95  165.5    Boy Secondary    9    27     0
+96  156.9    Boy Secondary   23    11     6
+97  132.1   Girl Secondary   21    23     7
+98  134.0    Boy Secondary   14     9     4
+99  143.1    Boy Secondary   12     8     6
+100 131.5    Boy Secondary   22     8     7
+101 135.4   Girl Secondary   25    15     4
+102 134.1    Boy Secondary   23    16     4
+103 141.2   Girl Secondary   33    29     4
+104 132.4    Boy Secondary   26    29     5
+105 132.4    Boy Secondary   24    15     8
+106 142.4    Boy Secondary   33    27     2
+107 132.7    Boy Secondary   22    15     8
+108 140.9    Boy Secondary   19    22     3
+109 142.2   Girl Secondary   25    34     4
+110 140.0    Boy Secondary   18    10     5
+111 136.3    Boy Secondary   20    28     5
+112 134.4   Girl Secondary   21     8     7
+113 136.6    Boy Secondary   29    23     6
+114 141.3   Girl Secondary   28    29     6
+115 132.3   Girl Secondary   19    14     5
+116 146.0   Girl Secondary   40    35     7
+117 138.8    Boy Secondary   16    19     5
+118 133.5   Girl Secondary   27    23     5
+119 140.6    Boy Secondary   34    22     1
+120 136.3    Boy Secondary   25    21     4
+121 136.4   Girl Secondary   28    14     5
+122 139.1    Boy Secondary   34    23     3
+123 133.3   Girl Secondary   22    20     5
+124 142.7   Girl Secondary   16    25     8
+125 152.7   Girl Secondary   14    17     6
+126 137.7   Girl Secondary   11    26     5
+127 145.5    Boy Secondary   31    24     1
+128 152.4    Boy Secondary   18     9     7
+129 158.8    Boy Secondary   30    15     2
+130 142.5    Boy Secondary   16    27     8
+131 156.7    Boy Secondary   34     1     2
+132 149.3    Boy Secondary   21    17     3
+133 144.4   Girl Secondary   27    25     6
+134 149.2    Boy Secondary   24    16     6
+135 147.9   Girl Secondary   22    16     7
+136 142.4   Girl Secondary   28    18     8
+137 153.3    Boy Secondary   23    21     5
+138 148.5    Boy Secondary   19    25     6
+139 158.7   Girl Secondary   29    28     2
+140 146.5    Boy Secondary   22    16     7
+141 142.4   Girl Secondary   28    19     2
+142 154.7    Boy Secondary   21    19     3
+143 167.4   Girl Secondary   35    25     1
+144 156.6    Boy Secondary   26    11     5
+145 155.1   Girl Secondary   21    17     7
+146 157.5   Girl Secondary   36    26     2
+147 151.1    Boy Secondary   14    10     1
+148 156.0   Girl Secondary   23    13     0
+149 155.3    Boy Secondary   20    15     1
+150 145.0   Girl Secondary   22    11     4
+151 149.6    Boy Secondary   21    22     6
+152 143.2   Girl Secondary   17    15     5
+153 152.5    Boy Secondary   18     7     8
+154 157.6    Boy Secondary   22    13     3
+155 152.9    Boy Secondary   12     1     2
+156 145.5   Girl Secondary   23     9     4
+157 163.1    Boy Secondary   22    20     1
+158 151.7    Boy Secondary   23    17     2
+159 145.2   Girl Secondary   33    32     3
+160 168.5    Boy Secondary   31    18     6
+161 148.6    Boy Secondary   22    26     5
+162 170.8    Boy Secondary   19    19     0
+163 164.1   Girl Secondary   25    26     1
+164 145.9    Boy Secondary   22    14     6
+165 148.7    Boy Secondary   12    12     5
+166 144.0   Girl Secondary   21    18     0
+167 150.6   Girl Secondary   19    17     6
+168 158.7    Boy Secondary   24     9     4
+169 157.4    Boy Secondary   18     6     7
+170 151.5    Boy Secondary   21    13     3
+171 159.5    Boy Secondary   18    13     7
+172 158.1    Boy Secondary   28    35     2
+173 173.3    Boy Secondary   20    10     7
+174 155.5    Boy Secondary   18    12     4
+175 158.2   Girl Secondary   17    15     7
+176 161.4   Girl Secondary   26    27     6
+177 162.3    Boy Secondary   27    14     3
+178 153.8    Boy Secondary   28    12     5
+179 161.0   Girl Secondary   21    16     5
+180 154.4   Girl Secondary   21    18     6
+181 163.4    Boy Secondary   15    12     6
+182 155.4   Girl Secondary   32    29     1
+183 162.2    Boy Secondary   12     8     7
+184 163.2    Boy Secondary   24    21     4
+185 160.5    Boy Secondary   12    38     4
+186 158.2    Boy Secondary   24    26     5
+187 167.0   Girl Secondary   20    19     1
+188 157.9   Girl Secondary   14    20     4
+189 156.9    Boy Secondary   19    36     5
+190 180.3   Girl Secondary   33    33     6
+191 164.5    Boy Secondary   26    22     5
+192 173.5   Girl Secondary   21    26     3
+193 159.8   Girl Secondary   18    10     7
+194 160.5    Boy Secondary   10    10     7
+195 157.2   Girl Secondary   22     4     3
+196 167.2    Boy Secondary   11     9     8
+197 187.5    Boy Secondary   26    13     0
+198 179.7    Boy Secondary   29    25     6
+199  97.1    Boy   Primary    9     9     7
+200 102.7   Girl   Primary   21    10     4
+201  96.4    Boy   Primary   26    23     1
+202  97.4    Boy   Primary   18    30     5
+203  97.4   Girl   Primary   23    25     3
+204  94.7   Girl   Primary   22    38     1
+205  93.1    Boy   Primary   16    20     4
+206 102.8    Boy   Primary   19    22     4
+207  94.8    Boy   Primary   14    17     7
+208  83.7   Girl   Primary   26    23     3
+209  92.7   Girl   Primary   10    12     3
+210 104.3    Boy   Primary   18     3     6
+211 102.3    Boy   Primary   18     5     1
+212 102.7   Girl   Primary   29    19     7
+213  95.9    Boy   Primary    9    34     1
+214  92.5   Girl   Primary   28    21     5
+215  99.2    Boy   Primary   28    30     6
+216 100.9   Girl   Primary   35    22     3
+217  91.0   Girl   Primary   17    13     4
+218 106.3    Boy   Primary   31    12     7
+219 113.5   Girl   Primary   29    20     7
+220 106.6   Girl   Primary   19    18     0
+221 111.4   Girl   Primary   10    27     7
+222 104.2   Girl   Primary   38    24     7
+223 105.0   Girl   Primary   17    15     3
+224 107.3   Girl   Primary   17    26     8
+225 100.3    Boy   Primary   36    14     7
+226 115.0    Boy   Primary   31    28     6
+227 112.9   Girl   Primary   13    15     7
+228 114.9   Girl   Primary   11    21     0
+229 118.7   Girl   Primary   20    27     5
+230 110.4   Girl   Primary   13    17     4
+231 107.0   Girl   Primary   30    27     8
+232 106.2    Boy   Primary   18    20     8
+233 112.7    Boy   Primary   27     9     7
+234 112.2    Boy   Primary   33    28     7
+235 120.8    Boy   Primary   21    21     4
+236 121.8   Girl   Primary   21     8     5
+237 115.0    Boy   Primary   21    23     7
+238 123.7   Girl   Primary   35    22     8
+239 116.9   Girl   Primary   24     9     3
+240 119.3    Boy   Primary   14    17     4
+241 125.2    Boy   Primary   20    16     3
+242 127.6    Boy   Primary   22    14     8
+243 120.0    Boy   Primary   29    29     2
+244 120.0    Boy   Primary   21    20     4
+245 127.2    Boy   Primary   25    25     7
+246 123.7   Girl   Primary   22    21     8
+247 115.0   Girl   Primary   23    14     7
+248 115.0   Girl   Primary   23    23     5
+249 125.4   Girl   Primary   21    24     7
+250 122.2    Boy   Primary   20    10     7
+251 125.3    Boy   Primary   15     7     6
+252 115.4   Girl   Primary   30    26     3
+253 128.2   Girl   Primary   26    11     7
+254 120.6    Boy   Primary   31    22     3
+255 121.4   Girl   Primary   27    28     0
+256 113.9    Boy   Primary   16    11     5
+257 117.8   Girl   Primary   23    24     4
+258 116.1   Girl   Primary   23    23     5
+259  94.0    Boy   Primary   13    15     5
+260  94.7   Girl   Primary   12    24     3
+261 101.0   Girl   Primary   11    19     5
+262 100.9   Girl   Primary   24    20     6
+263  94.9    Boy   Primary   11    15     6
+264 108.0    Boy   Primary   22     9     8
+265 109.3    Boy   Primary   33    25     7
+266 109.1   Girl   Primary   28    20     7
+267 116.1    Boy   Primary   18    15     8
+268 109.3    Boy   Primary   31    22     7
+269 112.6    Boy   Primary   26    25     5
+270 107.6    Boy   Primary   26    24     7
+271 111.1   Girl   Primary   27    23     6
+272 111.0   Girl   Primary   32    32     6
+273 105.6    Boy   Primary   29    19     8
+274 117.3   Girl   Primary   28    20     8
+275 110.7   Girl   Primary   32    31     8
+276 112.4   Girl   Primary   20    24     8
+277 106.4    Boy   Primary   26    29     8
+278 122.3    Boy   Primary   20    28     4
+279 127.1   Girl   Primary   27    27     5
+280 118.5   Girl   Primary   23     7     5
+281 126.2    Boy   Primary   22     8     8
+282 125.1    Boy   Primary   31    20     1
+283 120.4    Boy   Primary   13     5     8
+284 126.5    Boy   Primary   21    13     7
+285 125.0    Boy   Primary   15     5     4
+286 115.7    Boy   Primary   13     4     5
+287 126.1    Boy   Primary   20    13     4
+288 106.9    Boy   Primary   14    24     6
+289  97.3   Girl   Primary   27    27     5
+290  99.5    Boy   Primary   13     7     5
+291 105.9    Boy   Primary   16    15     6
+292  93.8    Boy   Primary   24    20     6
+293 106.0    Boy   Primary   19    21     4
+294 105.9   Girl   Primary   19     4     6
+295  98.0    Boy   Primary   21    26     4
+296  93.8   Girl   Primary   35    33     6
+297  95.5    Boy   Primary   17    23     6
+298  95.5    Boy   Primary   16    31     5
+299 106.1   Girl   Primary   14    19     6
+300 105.9   Girl   Primary   24    25     6
+301  96.8    Boy   Primary   18    23     6
+302  95.2   Girl   Primary   15    23     2
+303  97.3    Boy   Primary   17    22     5
+304 101.7   Girl   Primary   23    24     4
+305 101.5   Girl   Primary   31    12     3
+306 105.9   Girl   Primary   26    22     5
+307 102.7   Girl   Primary   28    17     4
+308 102.3    Boy   Primary   33    28     5
+309  96.3   Girl   Primary   28    18     5
+310  98.9    Boy   Primary   18    10     6
+311  95.9   Girl   Primary   33    23     3
+312 101.3   Girl   Primary   24    21     6
+313 100.4   Girl   Primary   22    22     6
+314 101.7    Boy   Primary   11    22     5
+315  97.9   Girl   Primary   22    31     5
+316 101.1   Girl   Primary   32    31     5
+317  95.1   Girl   Primary   29    34     5
+318 102.5   Girl   Primary   24    25     6
+319 102.1    Boy   Primary   22    22     6
+320 103.1   Girl   Primary   27    15     8
+321 105.0    Boy   Primary   11    14     8
+322 104.5    Boy   Primary   26    22     8
+323 103.6   Girl   Primary   25    18     5
+324 104.9   Girl   Primary   26    34     8
+325 102.7    Boy   Primary   22    19     5
+326 104.0    Boy   Primary   25    25     6
+327  97.7   Girl   Primary   14    14     7
+328 106.1    Boy   Primary   18    20     7
+329  96.2   Girl   Primary   13    27     7
+330  97.9    Boy   Primary   22    25     4
+331 105.4   Girl   Primary   22    22     8
+332  97.5   Girl   Primary   30    22     6
+333 101.7   Girl   Primary   14    14     7
+334 104.5    Boy   Primary   21    18     8
+335  96.3   Girl   Primary   16    14     7
+336  98.6    Boy   Primary   29    28     7
+337  98.6   Girl   Primary   38    28     6
+338 105.0    Boy   Primary   18    20     8
+339  97.9    Boy   Primary   26    22     7
+340  99.5   Girl   Primary   38    17     3
+341  98.4    Boy   Primary   30    20     5
+342 106.1    Boy   Primary   23    27     6
+343  97.7   Girl   Primary   26     3     6
+344  98.1   Girl   Primary   27    13     6
+345  95.2   Girl   Primary   17    19     4
+346  96.6   Girl   Primary   36    22     3
+347 103.7   Girl   Primary   29    23     1
+348  97.1    Boy   Primary    9     7     6
+349  99.1   Girl   Primary   22    12     3
+350 100.5    Boy   Primary    9     8     8
+351 105.8   Girl   Primary   31    29     5
+352 103.7   Girl   Primary   19     9     6
+353 101.8    Boy   Primary   19    28     6
+354 112.0    Boy   Primary   26    29     7
+355 110.1   Girl   Primary   17    25     8
+356 113.6   Girl   Primary   27    10     8
+357 118.6   Girl   Primary   24    15     4
+358 117.9   Girl   Primary   29    32     8
+359 107.5   Girl   Primary   22    20     7
+360 118.3    Boy   Primary   20    20     7
+361 112.4   Girl   Primary   28    19     8
+362 113.9    Boy   Primary   18    15     8
+363 108.5    Boy   Primary   27    28     8
+364 114.1    Boy   Primary   11     8     8
+365 115.7   Girl   Primary   18    21     6
+366 113.1   Girl   Primary   30    34     7
+367 117.2    Boy   Primary   20    21     6
+368 111.2   Girl   Primary   11     8     8
+369 118.0    Boy   Primary   24    31     8
+370 114.4   Girl   Primary   18    10     6
+371 115.5    Boy   Primary   17    16     8
+372 118.7   Girl   Primary   22    13     8
+373 115.6    Boy   Primary   31    26     8
+374 108.1   Girl   Primary   16     4     5
+375 111.3   Girl   Primary   14    15     7
+376 117.8   Girl   Primary   23    24     2
+377 112.1    Boy   Primary   11    21     7
+378 112.8   Girl   Primary   19    14     5
+379 107.2    Boy   Primary   19    10     3
+380 111.3   Girl   Primary   19    23     5
+381 106.7   Girl   Primary   29    25     8
+382 107.7   Girl   Primary   25    30     7
+383 106.5   Girl   Primary   20    15     6
+384 117.6    Boy   Primary   15    21     8
+385 115.6    Boy   Primary   13    28     8
+386 115.3   Girl   Primary   25    17     7
+387 107.7    Boy   Primary   29    24     5
+388 109.0    Boy   Primary   13     6     6
+389 117.0   Girl   Primary   20     9     8
+390 116.5    Boy   Primary   12    13     8
+391 115.2    Boy   Primary   32    28     6
+392 110.8   Girl   Primary   18    12     8
+393 116.9    Boy   Primary   23    17     6
+394 117.4   Girl   Primary   33    24     7
+395 118.3   Girl   Primary   28    14     7
+396 114.1    Boy   Primary   16    15     4
+397 112.2    Boy   Primary   17    15     7
+398 114.4    Boy   Primary   24    11     8
+399 117.6   Girl   Primary   29    28     8
+400 113.0    Boy   Primary   19    13     7
+401 110.9   Girl   Primary   31    21     6
+402 109.0   Girl   Primary   28    29     6
+403 125.9    Boy   Primary   25    25     8
+404 126.9    Boy   Primary   20    15     8
+405 124.7    Boy   Primary   15    15     7
+406 122.1   Girl   Primary   20    20     8
+407 123.4    Boy   Primary   21    28     7
+408 120.1   Girl   Primary   21    18     3
+409 124.4   Girl   Primary   25    33     8
+410 130.9    Boy   Primary   21    18     8
+411 130.1    Boy   Primary   24    12     8
+412 127.7    Boy   Primary   11    18     7
+413 126.1    Boy   Primary   29    19     5
+414 125.0    Boy   Primary   23    18     7
+415 121.7   Girl   Primary   18    11     7
+416 125.2    Boy   Primary   21    16     5
+417 126.6    Boy   Primary   27    25     3
+418 120.3    Boy   Primary   31    38     4
+419 122.1   Girl   Primary   16    27     8
+420 127.7    Boy   Primary   27    33     7
+421 118.9    Boy   Primary   11    15     8
+422 120.0   Girl   Primary   34    29     4
+423 120.0    Boy   Primary   33    25     6
+424 121.3   Girl   Primary   20    16     8
+425 135.1    Boy   Primary   12    17     1
+426 117.4   Girl   Primary   26    20     3
+427 123.3   Girl   Primary   26     6     4
+428 129.9    Boy   Primary   11    15     5
+429 126.9    Boy   Primary   19    25     5
+430 119.8    Boy   Primary   20    14     7
+431 127.9   Girl   Primary   34    19     6
+432 128.8    Boy   Primary   22    19     6
+433 119.8   Girl   Primary   12    26     7
+434 123.2   Girl   Primary   19    17     4
+435 125.1   Girl   Primary   23    11     8
+436 129.4    Boy   Primary   25    19     0
+437 124.9    Boy   Primary   21     5     8
+438 127.3   Girl   Primary   19    18     7
+439 122.0   Girl   Primary   25    14     7
+440 117.0   Girl   Primary   26    29     6
+441 128.4   Girl   Primary    9    13     8
+442 119.7   Girl   Primary   27    26     7
+443 130.9   Girl   Primary   17    20     7
+444 121.2    Boy   Primary   33    17     8
+445 115.4   Girl   Primary   14    25     2
+446 128.4   Girl   Primary   24    29     7
+447 121.0    Boy   Primary   20    18     8
+448 129.9    Boy   Primary   26    19     7
+449 130.9    Boy   Primary   22    20     8
+450 122.3   Girl   Primary   36    26     7
+451 123.5   Girl   Primary   25    17     8
+452 119.6   Girl   Primary   23    13     5
+453 118.5   Girl   Primary    9     9     8
+454 128.6    Boy   Primary   28    20     6
+455 123.1   Girl   Primary   14     7     7
+456 119.3   Girl   Primary   25    16     7
+457 128.3   Girl   Primary   19    13     7
+458 125.9    Boy   Primary   25    17     8
+459 130.8   Girl   Primary   14    20     8
+460   3.7   Girl   Primary   11     5     8
+461 125.7    Boy   Primary   22     5     6
+462 107.8   Girl   Primary   26    20     7
+463 113.4    Boy   Primary   28    25     7
+464 117.7    Boy   Primary   24     8     7
+465 115.3   Girl   Primary   20    24     7
+466 117.4   Girl   Primary   15    17     8
+467 111.2    Boy   Primary   18     9     6
+468 115.4   Girl   Primary   22    29     8
+469 110.2   Girl   Primary   29    35     6
+470 108.9    Boy   Primary   31    30     8
+471 112.1   Girl   Primary   24    29     8
+472 113.4    Boy   Primary   16    25     7
+473 107.3   Girl   Primary   29    28     6
+474 130.1   Girl   Primary    9     8     7
+475 123.7    Boy   Primary   27    19     6
+476 123.4   Girl   Primary   23    25     7
+477 130.7   Girl   Primary   26    20     8
+478 125.2   Girl   Primary   19    21     7
+479 129.5   Girl   Primary   23    21     7
+480 122.0   Girl   Primary   19    30     6
+481 126.2    Boy   Primary   29    31     3
+482 120.0    Boy   Primary   30    22     7
+483 100.9   Girl   Primary   28    26     5
+484  98.7    Boy   Primary   20     8     4
+485 102.7    Boy   Primary   24    33     5
+486  95.7   Girl   Primary   26    27     5
+487 102.5    Boy   Primary   25    20     6
+488  97.1    Boy   Primary   23    31     6
+489 103.5    Boy   Primary   30    24     5
+490  97.1    Boy   Primary   22    23     2
+491  99.3   Girl   Primary   28    32     6
+492  97.4    Boy   Primary   13    18     6
+493 101.9    Boy   Primary   26    17     3
+494  97.4    Boy   Primary   17     9     6
+495  98.7   Girl   Primary   27    26     4
+496 103.5    Boy   Primary   32    28     5
+497 104.5   Girl   Primary   25    25     6
+498 102.7    Boy   Primary   21    11     6
+499 103.1    Boy   Primary   22    22     6
+500 102.1   Girl   Primary   23    18     6
+501 101.2    Boy   Primary   22    26     5
+502 105.8   Girl   Primary   19    14     7
+503  96.0   Girl   Primary   18    19     7
+504 102.1    Boy   Primary   12    13     8
+505 106.1    Boy   Primary    4    18     5
+506 111.9    Boy   Primary   20    17     7
+507 100.1    Boy   Primary   18    16     3
+508 101.2    Boy   Primary   31    35     4
+509  95.8   Girl   Primary   27    30     6
+510  96.1   Girl   Primary   23    22     4
+511  95.8    Boy   Primary   29    29     4
+512 104.5    Boy   Primary   29    18     7
+513 100.9    Boy   Primary   15    14     7
+514  95.3    Boy   Primary   29    24     8
+515 103.3   Girl   Primary   20    16     8
+516  99.1   Girl   Primary   19    22     8
+517 102.1    Boy   Primary   19    13     5
+518 102.1    Boy   Primary   20    25     4
+519 103.2    Boy   Primary   17    21     4
+520  97.4    Boy   Primary   24    13     3
+521 101.1   Girl   Primary    9    12     4
+522 105.4    Boy   Primary   23    22     5
+523 105.4    Boy   Primary   20    25     6
+524 106.0    Boy   Primary   19    13     7
+525 105.3   Girl   Primary   16    19     3
+526 101.8    Boy   Primary   19    17     5
+527 104.3   Girl   Primary    9    28     5
+528  98.4   Girl   Primary   21    13     6
+529  96.3   Girl   Primary   29    27     3
+530  95.7    Boy   Primary    9    23     4
+531 106.0   Girl   Primary   15    27     6
+532 105.4   Girl   Primary   23    18     5
+533  99.1   Girl   Primary   19    33     2
+534 104.3   Girl   Primary   21    30     3
+535 105.4    Boy   Primary   22    12     6
+536  96.0    Boy   Primary    9    10     5
+537  96.3    Boy   Primary   24    13     4
+538 106.9    Boy   Primary   22    24     5
+539  98.0   Girl   Primary    9    10     5
+540 105.5   Girl   Primary    9    19     5
+541 117.9    Boy   Primary   18    15     8
+542 118.4   Girl   Primary   21    26     7
+543 110.7   Girl   Primary   26    17     6
+544 113.4    Boy   Primary   28    17     8
+545 110.3   Girl   Primary   31    34     1
+546 108.8    Boy   Primary   26    28     2
+547 110.7   Girl   Primary   21    27     8
+548 119.1   Girl   Primary   35    28     1
+549 107.5   Girl   Primary   26    14     4
+550 112.7   Girl   Primary   18    15     8
+551 116.2    Boy   Primary   26    24     7
+552 113.4   Girl   Primary   15    16     5
+553 108.7    Boy   Primary   19    23     1
+554 117.8   Girl   Primary   29    29     4
+555 109.6   Girl   Primary   17    18     3
+556 110.4    Boy   Primary   13     8     7
+557 111.2    Boy   Primary   24    14     5
+558 113.3    Boy   Primary   15    12     7
+559 112.7    Boy   Primary   17     6     6
+560 109.0   Girl   Primary   29    23     7
+561 110.0   Girl   Primary   16    23     6
+562 108.3    Boy   Primary   22    22     8
+563 112.9    Boy   Primary   25    13     6
+564 107.9    Boy   Primary   16    23     6
+565 110.1   Girl   Primary   25    21     6
+566 121.1    Boy   Primary   13    10     3
+567 123.2   Girl   Primary   26    30     4
+568 128.5    Boy   Primary   17    19     8
+569 124.7   Girl   Primary   23    14     5
+570 130.1    Boy   Primary   12    14     6
+571 122.0    Boy   Primary   12    16     8
+572 130.8   Girl   Primary   25    13     6
+573 122.9    Boy   Primary   13    23     6
+574 120.8    Boy   Primary   21     8     6
+575 123.2    Boy   Primary   21    19     5
+576 123.9    Boy   Primary   14    20     7
+577 128.6   Girl   Primary   19    19     7
+578 127.7    Boy   Primary   18    11     6
+579 122.9    Boy   Primary   18    10     5
+580 129.2   Girl   Primary   24    16     6
+581 120.0   Girl   Primary   16    14     6
+582 122.9   Girl   Primary   19    10     8
+583 125.7   Girl   Primary   20    26     7
+584 121.0   Girl   Primary    9    27     8
+585 123.2    Boy   Primary   20    12     8
+586 124.2    Boy   Primary   26     8     7
+587 126.5   Girl   Primary   29    37     6
+588 129.5   Girl   Primary   21    12     7
+589 126.9    Boy   Primary   26    20     3
+590 128.6    Boy   Primary   17    17     7
+591 122.3    Boy   Primary   15    13     8
+592 120.1    Boy   Primary   24    17     3
+593 128.0   Girl   Primary   34    22     6
+594 126.3   Girl   Primary   24    31     5
+595 126.2    Boy   Primary   27    11     5
+596 124.9   Girl   Primary   23     8     5
+597 125.3    Boy   Primary   27    11     5
+598 127.6   Girl   Primary   30    20     6
+599 125.6   Girl   Primary   24    31     4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MathAnxiety_inspect <span class="ot">&lt;-</span> <span class="fu">inspect</span>(MathAnxiety)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>MathAnxiety_inspect<span class="sc">$</span>categorical</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  name   class  levels     n missing distribution                               
+  &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt;                                      
+1 Gender factor      2   599       0 "Boy (53.9%), Girl (46.1%)                …
+2 Grade  factor      2   599       0 "Primary (66.9%), Secondary (33.1%)       …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>MathAnxiety_inspect<span class="sc">$</span>quantitative</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 11
+  name  class     min    Q1 median    Q3   max   mean    sd     n missing
+* &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;   &lt;int&gt;
+1 Age   numeric   3.7  106.   121. 142.   188. 125.   22.3    599       0
+2 AMAS  integer   4     18     22   26.5   45   22.0   6.60   599       0
+3 RCMAS integer   1     14     19   25     41   19.2   7.57   599       0
+4 Arith integer   0      4      6    7      8    5.30  2.11   599       0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>MathAnxiety <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_density</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> AMAS,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Math Anxiety Score Densities"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Boys vs Girls"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>MathAnxiety <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_boxplot</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    AMAS <span class="sc">~</span> Gender,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Math Anxiety Score Box Plots"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Boys vs Girls"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>MathAnxiety <span class="sc">%&gt;%</span> <span class="fu">count</span>(Gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Gender   n
+1    Boy 323
+2   Girl 276</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>MathAnxiety <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(AMAS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Gender  mean
+  &lt;fct&gt;  &lt;dbl&gt;
+1 Boy     21.2
+2 Girl    22.9</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-multiple-means-with-anova" class="level1">
+<h1><strong>Comparing Multiple Means with ANOVA</strong></h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>frogs_orig <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/frogs.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 60 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (4): Frogspawn sample id, Temperature13, Temperature18, Temperature25
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>frogs_orig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 60 × 4
+   `Frogspawn sample id` Temperature13 Temperature18 Temperature25
+                   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+ 1                     1            24            NA            NA
+ 2                     2            NA            21            NA
+ 3                     3            NA            NA            18
+ 4                     4            26            NA            NA
+ 5                     5            NA            22            NA
+ 6                     6            NA            NA            14
+ 7                     7            27            NA            NA
+ 8                     8            NA            22            NA
+ 9                     9            NA            NA            15
+10                    10            27            NA            NA
+# ℹ 50 more rows</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

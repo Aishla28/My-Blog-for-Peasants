@@ -1,0 +1,156 @@
+---
+title: "Dataset-2: Movie Profits"
+---
+
+# Movie Profits
+
+Let's set up our document with libraries first.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(skimr)
+library(ggformula)
+```
+
+Now, let's import the dataset.
+
+```{r}
+movie <- read_delim(file = "../../data/movie_profit.csv",delim =";")
+```
+
+```{r}
+glimpse(movie)
+view(movie)
+```
+
+```{r}
+skim(movie)
+```
+
+```{r}
+inspect(movie)
+```
+
+## Data Dictionary
+
+### Qualitative Variables
+
+-   ***movie (chr):*** Name of the movie.
+
+-   ***distributor (chr):*** company that is distributing the movie (fct).
+
+-   ***mpaa_rating (chr):*** movie rating (fct).
+
+-   ***genre (chr):*** movie genre (fct).
+
+-   ***decade (chr):*** movie genre.
+
+### Quantitative Variables
+
+-   ***release_date (date):*** date of release.
+
+-   ***production_budget (dbl):*** budget for production of the movie.
+
+-   ***domestic_gross (dbl):*** gross income for the movie in domestic box office.
+
+-   ***worldwide_gross (dbl):*** gross income for the movie in international box office.
+
+-   ***profit_ratio (dbl):*** ratio of profit.
+
+This dataset has equal numbers of qual as well as quant variables. **profit_ratio is the target variable** here, whereas **genre** and **distributor** are the potential **predictor variables**.
+
+Now, I will mutate some variables and turn them into factors.
+
+```{r}
+movie_modified <- movie %>% 
+  mutate(
+    distributor = as.factor(distributor),
+    mpaa_rating = as.factor(mpaa_rating),
+    genre = as.factor(genre),
+    decade = as.factor(decade)
+  )
+
+glimpse(movie_modified)
+print(movie_modified)
+```
+
+### What research activity might have been carried out to obtain the data graphed here?
+
+-   The first one would be internet browsing. Availing data from sources like imdb, wikipedia, etc.
+
+-   Let's say that an individual was very excited and enthusiastic about obtaining this dataset. They might have visited their nearest movie theaters every friday to get the movie names. For an enquiry to become a data set, it has to start somewhere with some variable.
+
+-   More enthusiasm would've led them to call a production house and ask questions regarding the budget.
+
+### What might be the Hypothesis / Research Question, based on the Chart?
+
+-   do profit margins for different genres vary across major film distributors?
+
+-   which genres are more profitable for each of the distributors?
+
+-   How does the distributor "N/A" compare to the other big distributors?
+
+-   What is the comparison between domestic gross and international gross of the movies?
+
+-   what has been the trend in production budget across decades?
+
+-   which genre had most profit in each decade?
+
+Let's replicate the graph now.
+
+```{r}
+movie_modified %>%
+  group_by(distributor, genre) %>%                 
+  
+  summarise(median_profit_ratio = median(profit_ratio, na.rm = TRUE)) %>%  
+  ggplot(aes(x = genre, y = median_profit_ratio)) +  
+  geom_bar(stat = "identity", fill = "darkgray") +   
+  facet_wrap(~ distributor) +                        
+  coord_flip() +                                     
+  labs(
+    title = "Profits made by Film Distributors",
+    subtitle = "Ratio of Profits to Budgets",
+    x = "Genre", 
+    y = "Median Profit Ratio",
+    caption = "Tidy Tuesday Oct 23, 2018"
+  ) +
+  theme_minimal() +                                  
+  theme(
+    strip.text = element_text(face = "bold"),        
+    plot.title = element_text(face = "bold", size = 16)  
+  )
+```
+
+**\[KINDLY NOTE: I have taken the help of chatgpt to replicate this graph as I was unable to figure it out myself.\]**
+
+This is a bar graph!
+
+### Observations
+
+-   All distributors have at least one genre that they make most profit from.
+
+-   'Action' genre is most successful in very small scale distributors named 'N/A'.
+
+-   20th century fox has the most uniform distribution of profit margin across all genres.
+
+-   'Drama' seems to have the equal profitability margin across all distributors.
+
+-   'Action', 'Adventure', and 'Horror' generally have the done the most profit across all distributors.
+
+### What pre-processing of the data was required to create the chart?
+
+Use of delimiter in order to separate the columns.
+
+### Inference
+
+Since genres like action, adventure, and horror have uniform profits across all distributors, it is therefore more probable to make profitable movies belonging to these genres.
+
+Big distributors like 20th century fox and universal studios usually manage to make profits out of any of the said genre regardless of the rating.
+
+if one cannot get hold of these big distributors, the best way to break through would be to make action movies and sell them all across small distributors.
+
+### Story
+
+The company that had started out as "Comedy Spread" was doing wonders just a decade ago. Their light-hearted films and rom-com hits had audiences laughing all the way to the box office. However, times have changed now. People prefer action over drama and comedy (I can’t seem to understand why). With every passing year, their profits from action-packed blockbusters soared. It’s as if audiences crave the thrill of explosions, chases, and stunts more than ever. "Comedy Spread" finds itself at a crossroads—will they change themselves to survive in this market, or will they stick to their roots, hoping the world rekindles its love for a good laugh? Only time will tell.

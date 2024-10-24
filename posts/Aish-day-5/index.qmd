@@ -12,6 +12,7 @@ Today, we are learning all about **box plots**.
 
 ```{r}
 #| label: setup
+library(usethis)
 library(tidyverse)
 library(mosaic)
 library(ggformula)
