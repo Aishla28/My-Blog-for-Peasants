@@ -33,3 +33,84 @@ skimr::skim(grades)
 ```{r}
 inspect(grades)
 ```
+
+```{r}
+grades_modified <- grades %>%
+  dplyr::mutate(
+    Degree = as_factor(Degree),
+    Year = as_factor(Year),
+    Course =as_factor(Course),
+    Gender = as_factor(Gender),
+    letter = as_factor(`Letter-Grade`)
+    
+  )
+
+glimpse(grades_modified)
+```
+
+```{r}
+gf_histogram(~Score,
+  fill = ~Degree,
+  data = grades_modified, alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Score)) %>%
+  gf_labs(
+    title = "Histogram of Scores by Degree",
+    x = "Score", y = "count"
+  ) %>%
+  gf_text(7 ~ (mean(Score) + 2),
+    label = "Overall Mean Score"
+  ) %>%
+  gf_refine(guides(fill = guide_legend(title = "Degree")))
+
+```
+
+```{r}
+gf_histogram(~Score,
+  fill = ~Degree,
+  data = grades_modified, alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Score)) %>%
+  gf_labs(
+    title = "Histograms of Score by Degree Programs",
+    x = "Score", y = "Count"
+  ) %>%
+  gf_refine(guides(fill = guide_legend(title = "Degree Programs"))) %>%
+  gf_facet_wrap(~ Degree)
+
+```
+
+```{r}
+grades_anova <- aov(Score ~ Degree, data = grades_modified)
+```
+
+```{r}
+supernova::pairwise(grades_anova,
+  correction = "Bonferroni", # Try "Tukey"
+  alpha = 0.05, # 95% CI calculation
+  var_equal = TRUE, # We'll see
+  plot = TRUE
+)
+```
+
+```{r}
+shapiro.test(x = grades_modified$Score)
+```
+
+```{r}
+grades_modified %>%
+  group_by(Degree) %>%
+  group_modify(~ .x %>%
+    select(Score) %>%
+    as_vector() %>%
+    shapiro.test() %>%
+    broom::tidy())
+```
+
+```{r}
+grades_anova$residuals %>%
+  as_tibble() %>%
+  gf_dhistogram(~value, data = .) %>%
+  gf_fitdistr()
+shapiro.test(grades_anova$residuals)
+```
