@@ -1,0 +1,80 @@
+---
+title: "Tips-data [A3]"
+---
+
+# Tips data
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(crosstable)
+library(broom)
+```
+
+```{r}
+mydata <- read_csv("../../data/tip.csv")
+mydata
+
+
+```
+
+```{r}
+mydata %>% 
+  crosstable(Tip ~ Preferance) %>% 
+  as_flextable()
+```
+
+```{r}
+tip_modified <- mydata %>% 
+  dplyr::mutate(
+    Gender = as_factor(Gender),
+    Preferance = as_factor(Preferance)
+  )
+
+glimpse(tip_modified)
+```
+
+```{r}
+shapiro.test(tip_modified$Tip)
+
+```
+
+```{r}
+mosaic::t_test(Tip ~ Preferance, data = tip_modified) 
+
+```
+
+```{r}
+wilcox.test(Tip ~ Preferance, data = tip_modified) %>%  
+  broom::tidy()
+```
+
+Since the **p-value is high**, we shall not reject the null hypothesis. Any observed difference might be due to chance, and there is no significant difference between the groups - Non-veg and Veg.
+
+```{r}
+tips_permute <-
+  do(4999) * diffmean(data=tip_modified, Tip~shuffle(Preferance))
+tips_permute
+```
+
+```{r}
+tip_modified %>%
+  gf_histogram(~Tip, fill = ~Preferance) 
+```
+
+```{r}
+tip_modified %>%
+  gf_density(~Tip,
+             fill = ~Gender,
+             alpha = 0.8,
+             title = "DENSITY PLOT"
+    
+  )
+```
+
+-   This data is **not normally distributed**. A normal distribution would depict a bell curve. Here, the tips are heavily concentrated in the lower values, and there’s a long right tail. Hence, the data is heavily skewed to the right for both genders.
+
+-   Overall, tips are typically low, with a few outliers where people gave much higher amounts, especially among males.

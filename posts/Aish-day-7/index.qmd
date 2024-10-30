@@ -2,9 +2,57 @@
 title: "Day-7"
 ---
 
+# Inference for a Single Mean
+
+### Shapiro-Wilkes Test
+
+tests whether a data variable is normally distributed or not. It makes the assumption that the variable is so distributed and then computes the probability of how likely this is. So a high ***p.value*** indicates high probability.
+
+Shapiro test does not work with large quant variables. In that case, Anderson-Darling test is done.
+
+### **t-Test**
+
+A t-test is used to compare the means of two groups to see if they are significantly different from each other. It assumes that your data is normally distributed and that each group has similar variability (similar spread in the data).
+
+**When to use it**: If you have two groups (like test scores for two different teaching methods) and you want to know if the difference in their averages is meaningful or just due to random chance.
+
+### **Wilcoxon Test**
+
+The Wilcoxon test is a **non-parametric** alternative to the t-test. It compares the medians (middle values) of two groups instead of the means.
+
+**When to use it**: when the data isn’t normally distributed, or when you have outliers that might affect the mean. It’s useful for comparing ranks or orders rather than actual values.
+
+### **Permutation Test**
+
+A permutation test is a way to test if the difference between two groups is meaningful by **shuffling** or **randomly reassigning** the group labels many times and checking how often you get a difference as big as the one observed. How it works is that you shuffle the data repeatedly and calculate the difference in group means each time. Then, you see if the original difference is unusual compared to the shuffled results.
+
+**When to use it**: When you’re unsure if your data meets the assumptions of the t-test, or you want a very flexible way to test your hypothesis. It works well with any type of data.
+
+**Advantage**: It doesn’t require the data to follow a specific distribution, making it highly flexible.
+
+### **Bootstrap**
+
+The bootstrap is a technique that involves **resampling** your data with replacement (randomly picking data points over and over) to estimate a statistic, like the mean, and to understand the variability or confidence intervals of that estimate. How it works is that you create thousands of new "bootstrap samples" by randomly picking data points from your original sample (with replacement), calculate the statistic for each sample, and then look at the distribution of these results.
+
+**When to use it**: When you want to estimate the reliability or variability of a statistic (like the mean, median, or difference between groups), especially if your sample is small or you’re unsure of the population distribution.
+
+**Advantage**: The bootstrap doesn’t make any assumptions about the shape of your data distribution, and it’s ***great for estimating confidence intervals.***
+
+### *Summary*
+
+-   **t-Test**: Compares means, assumes normality.
+
+-   **Wilcoxon Test**: Compares medians, used for non-normal data.
+
+-   **Permutation Test**: Compares any statistic by shuffling, flexible and distribution-free.
+
+-   **Bootstrap**: Estimates the variability of any statistic by resampling, no distribution assumptions.
+
 # **Inference for Two Independent Means**
 
 > ### "To be nobody but myself – in a world which is doing its best, night and day, to make you everybody else – means to fight the hardest battle which any human being can fight, and never stop fighting."
+>
+> — E.E. Cummings, poet (14 Oct 1894-1962)
 
 ```{r}
 #| label: setup
@@ -19,7 +67,8 @@ library(openintro) # datasets
 library(gt) # for tables
 library(patchwork) # Arranging Plots
 library(ggprism) # Interesting Categorical Axes
-library(supernova) # Beginner-Friendly ANOVA Tables
+library(supernova)# Beginner-Friendly ANOVA Tables
+library(DescTools)
 ```
 
 ```{r}
@@ -60,4 +109,150 @@ MathAnxiety %>%
 ```{r}
 frogs_orig <- read_csv("../../data/frogs.csv")
 frogs_orig
+```
+
+```{r}
+frogs_orig %>%
+  pivot_longer(
+    .,
+    cols = starts_with("Temperature"),
+    cols_vary = "fastest",
+    # new in pivot_longer
+    names_to = "Temp",
+    values_to = "Time"
+  ) %>%
+  drop_na() %>%
+  ##
+  separate_wider_regex(
+    cols = Temp,
+    # knock off the unnecessary "Temperature" word
+    # Just keep the digits thereafter
+    patterns = c("Temperature", TempFac = "\\d+"),
+    cols_remove = TRUE
+  ) %>%
+  # Convert Temp into TempFac, a 3-level factor
+  mutate(TempFac = factor(
+    x = TempFac,
+    levels = c(13, 18, 25),
+    labels = c("13", "18", "25")
+  )) %>%
+  rename("Id" = `Frogspawn sample id`) -> frogs_long
+frogs_long
+##
+frogs_long %>% count(TempFac)
+```
+
+```{r}
+gf_histogram(~Time,
+  fill = ~TempFac,
+  data = frogs_long, alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Time)) %>%
+  gf_labs(
+    title = "Histograms of Hatching Time Distributions vs Temperature",
+    x = "Hatching Time", y = "Count"
+  ) %>%
+  gf_text(7 ~ (mean(Time) + 2),
+    label = "Overall Mean"
+  ) %>%
+  gf_refine(guides(fill = guide_legend(title = "Temperature level (°C)")))
+```
+
+```{r}
+
+gf_boxplot(
+  data = frogs_long,
+  Time ~ TempFac,
+  fill = ~TempFac,
+  alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Time)) %>%
+  gf_labs(
+    title = "Boxplots of Hatching Time Distributions vs Temperature",
+    x = "Temperature", y = "Hatching Time",
+    caption = "Using ggprism"
+  ) %>%
+  gf_refine(
+    scale_x_discrete(guide = "prism_bracket"),
+    guides(fill = guide_legend(title = "Temperature level (°C)"))
+  )
+```
+
+The histograms look well separated and the box plots also show very little overlap. So we can reasonably hypothesize that Temperature has a significant effect on Hatching Time.
+
+```{r}
+frogs_anova <- aov(Time ~ TempFac, data = frogs_long)
+```
+
+```{r}
+# library(supernova)
+
+supernova::pairwise(frogs_anova,
+  correction = "Bonferroni", # Try "Tukey"
+  alpha = 0.05, # 95% CI calculation
+  var_equal = TRUE, # We'll see
+  plot = TRUE
+)
+```
+
+The differences in spawn hatching `Time` between each pair of `TempFac` settings are given by the `diff` column. Also shown are the confidence intervals for each of these differences (none of which include 0); the `p-value`s for each of these differences is also negligible. Thus we can conclude that the **effect of temperature on hatching time** is significant.
+
+```{r}
+supernova::equation(frogs_anova)
+```
+
+ANOVA makes 3 fundamental assumptions:
+
+a.  Data (and errors) are normally distributed.
+
+b.  Variances are equal.
+
+c.  Observations are independent.
+
+```{r}
+shapiro.test(x = frogs_long$Time)
+```
+
+```{r}
+frogs_long %>%
+  group_by(TempFac) %>%
+  group_modify(~ .x %>%
+    select(Time) %>%
+    as_vector() %>%
+    shapiro.test() %>%
+    broom::tidy())
+```
+
+The `shapiro.wilk` test makes a NULL Hypothesis that the data **are** normally distributed and estimates the probability that the given data could have happened by chance. Except for `TempFac = 18` the `p.value`s are less than 0.05 and we can reject the NULL hypothesis that each of these is normally distributed.
+
+```{r}
+
+frogs_anova$residuals %>%
+  as_tibble() %>%
+  gf_dhistogram(~value, data = .) %>%
+  gf_fitdistr()
+##
+frogs_anova$residuals %>%
+  as_tibble() %>%
+  gf_qq(~value, data = .) %>%
+  gf_qqstep() %>%
+  gf_qqline()
+##
+shapiro.test(frogs_anova$residuals)
+```
+
+Unsurprisingly, the residuals are also not normally distributed either.
+
+Response data with different variances at different levels of an *explanatory* variable are said to exhibit **heteroscedasticity**. This violates one of the assumptions of ANOVA.
+
+To check if the `Time` readings are similar in `variance` across levels of `TempFac`, we can use the Levene Test, or since our per-group observations are not normally distributed, a non-parametric rank-based Fligner-Killeen Test. The NULL hypothesis is that the data **are** with similar variances. The tests assess how probable this is with the given data assuming this NULL hypothesis:
+
+```{r}
+frogs_long %>%
+  group_by(TempFac) %>%
+  summarise(variance = var(Time))
+# Not too different...OK on with the test
+DescTools::LeveneTest(Time ~ TempFac, data = frogs_long)
+##
+fligner.test(Time ~ TempFac, data = frogs_long)
 ```

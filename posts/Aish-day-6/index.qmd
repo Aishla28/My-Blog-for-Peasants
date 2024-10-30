@@ -4,6 +4,22 @@ title: "day-6"
 
 # Samples, Populations, Statistics and Inference
 
+A ***population*** is a collection of individuals or observations we are interested in. This is also commonly denoted as a study population in science research, or a *target audience* in design. We mathematically denote the population’s size using upper-case `N`.
+
+***Sampling*** is the act of collecting a small subset from the population, which we generally do when we can’t perform a **census**. We mathematically denote the sample size using lower case `n`.
+
+eg-
+
+Imagine there’s a huge group (population) of people, and you want to know the average (mean) height of everyone in this group. But measuring everyone’s height is way too difficult and time-consuming. Instead, you decide to take smaller random samples, like groups of 50 people, and find the average height for each group.
+
+### How does this work, and what happens?
+
+1.  **Collecting Multiple Samples**: If you took a lot of these samples, each group would have its own average height. Some groups might have a higher average than the population average, and some might have a lower average.
+
+2.  **Pattern of Sample Means**: If you plotted all these sample means (average heights from each sample) on a graph, you’d see a pattern: most of these sample means would cluster around the actual population mean (the true average height for everyone).
+
+3.  **Normal Distribution**: This pattern forms a **bell curve** (normal distribution) around the population mean. Most of the sample means are close to the population mean, while fewer sample means are far from it. ***So, this "normal" shape means that if you take enough samples, the average of all the sample means will be very close to the population mean***.
+
 -   According to the CLT, as the **sample size increases**, the distribution of the sample means becomes more tightly concentrated around the population mean, and the **sampling distribution** becomes narrower.
 
 -   **Sample size**: number of observations or data points in sample. ***eg -*** If you are conducting a survey and collect responses from 100 people, your sample size is 100.
@@ -12,7 +28,7 @@ title: "day-6"
 
 -   As the sample becomes longer, the estimate of the mean becomes narrower.
 
-Since we would always work with a sample mean, it is not possible to know what the exact population mean is. However, there is something called as a **confidence interval**, whisk is the standard deviation around the sample mean. With confidence interval, we can say that the probability of population mean being within this range is rather very high.
+Since we would always work with a sample mean, it is not possible to know what the exact population mean is. However, there is something called as a **confidence interval**, which is the standard deviation around the sample mean. With confidence interval, we can say that the probability of population mean being within this range is rather very high.
 
 -   narrow confidence intervals correlate to high accuracy of the sample set.
 

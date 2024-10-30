@@ -1,0 +1,71 @@
+---
+title: "Pocket Money [A3]"
+author: "Aish"
+---
+
+# Pocket Money Data-set
+
+This data-set shows the money spent by each individual on that particular day.
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(crosstable)
+library(broom)
+```
+
+```{r}
+money <- read_csv("../../data/Pocket_Money.csv")
+money
+```
+
+```{r}
+money %>% 
+  crosstable(Money_spent ~ Gender) %>% 
+  as_flextable()
+```
+
+```{r}
+money_modified <- money %>% 
+  dplyr::mutate(
+    Gender = as_factor(Gender)
+  )
+
+glimpse(money_modified)
+```
+
+```{r}
+shapiro.test(money_modified$Money_spent)
+```
+
+The closer the value of W is to 1, the more likely the data is to be normally distributed. Here, W = 0.34508 (quite far from 1). Hence the data is not normally distributed.
+
+```         
+```
+
+Therefore, we do not need to do the t.test, but the wilcox test. However, I would want to compare the means of groups while assuming normality. So let's do the t.test first and then move on to the wilcox test.
+
+```{r}
+mosaic::t_test(Money_spent ~ Gender, data = money_modified) 
+```
+
+-   While the **Shapiro test** indicates that the data for `Money_spent` is not normally distributed, the **t-test** finds no significant difference in mean `Money_spent` between males and females, as indicated by a high p-value.
+
+let's now do the wilcox test to get more clarity.
+
+```{r}
+wilcox.test(Money_spent ~ Gender, data = money_modified) %>%  
+  broom::tidy()
+```
+
+**p-value is low**. Hence, I shall not reject the null hypothesis, suggesting that there isn't any statistically significant difference between the two genders and the money spent on that day.
+
+```{r}
+money_modified %>% 
+gf_histogram(~Money_spent, fill = ~Gender)
+```
+
+While we do have a few outliers, what we can observe from the histogram is that both the genders spend more or less the same amount. This might be because I believe all individuals are college going students and therefore, get more or less the same amount of pocket money. Hence, their daily expenditure is more or less the same as well.

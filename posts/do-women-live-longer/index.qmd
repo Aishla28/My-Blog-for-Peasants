@@ -140,7 +140,7 @@ it represents slop of the graph when m = 1, meaning when there is a 1:1 correlat
 
     -   I converted 'continent' variable to factor as it had 7 levels. It seemed only fair to convert it to a factor.
 
-### What research activity might have been carried out to obtain the data graphed here? 
+### What research activity might have been carried out to obtain the data graphed here?
 
 Life expectancy is calculated at different stages and ages. I do not think the researchers went around on the streets gathering data themselves, although that would've been fun. However, I believe this data might have been obtained through different sources over the years. For example, they would've contacted WHO and other trusted organizations to gather this data. Government websites, and hospitals from across the world would've been contacted for the same.
 

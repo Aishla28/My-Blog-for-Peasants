@@ -1,0 +1,35 @@
+---
+title: "Grades-Dataset"
+author: "Aish"
+---
+
+# Grades across disciplines at SMI (B.Des, B.Voc, B.Fa)
+
+This data-set contains grades of student across B.Des, B.Voc and B.Fa at SMI.
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(crosstable)
+library(broom)
+library(supernova)
+library(infer)
+library(ggprism)
+library(patchwork)
+```
+
+```{r}
+grades <- read_csv("../../data/Grades.csv")
+grades
+```
+
+```{r}
+skimr::skim(grades)
+```
+
+```{r}
+inspect(grades)
+```
